@@ -13,6 +13,8 @@
 		344F56B124B533C400E63F75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 344F56AF24B533C400E63F75 /* Main.storyboard */; };
 		344F56B324B533C600E63F75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 344F56B224B533C600E63F75 /* Assets.xcassets */; };
 		344F56B624B533C600E63F75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 344F56B424B533C600E63F75 /* LaunchScreen.storyboard */; };
+		344F56BE24B6887500E63F75 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344F56BD24B6887500E63F75 /* ListViewController.swift */; };
+		344F56C024B7F0C100E63F75 /* ListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344F56BF24B7F0C100E63F75 /* ListViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		344F56B224B533C600E63F75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		344F56B524B533C600E63F75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		344F56B724B533C600E63F75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		344F56BD24B6887500E63F75 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		344F56BF24B7F0C100E63F75 /* ListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				344F56B224B533C600E63F75 /* Assets.xcassets */,
 				344F56B424B533C600E63F75 /* LaunchScreen.storyboard */,
 				344F56B724B533C600E63F75 /* Info.plist */,
+				344F56BD24B6887500E63F75 /* ListViewController.swift */,
+				344F56BF24B7F0C100E63F75 /* ListViewCell.swift */,
 			);
 			path = Vocalize;
 			sourceTree = "<group>";
@@ -140,6 +146,8 @@
 			files = (
 				344F56AE24B533C400E63F75 /* ViewController.swift in Sources */,
 				344F56AA24B533C400E63F75 /* AppDelegate.swift in Sources */,
+				344F56C024B7F0C100E63F75 /* ListViewCell.swift in Sources */,
+				344F56BE24B6887500E63F75 /* ListViewController.swift in Sources */,
 				344F56AC24B533C400E63F75 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
