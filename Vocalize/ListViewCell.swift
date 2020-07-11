@@ -11,8 +11,13 @@ import UIKit
 
 class ListViewCell: UITableViewCell {
     
-    @IBAction func playPauseButton(_ sender: UIButton) {
-    }
+    
+    @IBOutlet weak var audioLabel: UILabel!
+    
+    @IBOutlet weak var playPause: UIButton!
+    
+//    @IBAction func playPauseButton(_ sender: UIButton) {
+//    }
     
     
 }

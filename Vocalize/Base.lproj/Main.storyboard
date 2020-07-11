@@ -84,9 +84,6 @@
                                                         <constraint firstAttribute="width" constant="60" id="XQD-SQ-j7z"/>
                                                     </constraints>
                                                     <state key="normal" image="play"/>
-                                                    <connections>
-                                                        <action selector="playPauseButton:" destination="a0d-0w-wam" eventType="touchUpInside" id="U0B-lz-WmK"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -97,6 +94,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="DBc-vg-9el" secondAttribute="bottom" id="imK-Gs-chb"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="audioLabel" destination="bvW-nD-pxb" id="8wJ-uc-fuF"/>
+                                            <outlet property="playPause" destination="DBc-vg-9el" id="aBQ-Fg-ZTg"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
