@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import CoreData
 
 class ViewController: UIViewController, AVAudioRecorderDelegate {
 
@@ -15,9 +16,12 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
     
     var recordingSession:AVAudioSession!
     var audioRecorder:AVAudioRecorder!
-    //var audioplayer:AVAudioPlayer!
     var isAudioRecordingGranted: Bool!
-    var numberOfRecords: Int = 0
+    var appDelegate: AppDelegate!
+    var currentRecordingId: String = ""
+ 
+    
+    
 
 
     @IBOutlet weak var recordButton: UIButton! // aka buttonLabel
@@ -28,9 +32,12 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
         recordingSession = AVAudioSession.sharedInstance()
         checkRecordPermission()
         
-        if let number:Int = UserDefaults.standard.object(forKey: "myNumber") as? Int {
-            numberOfRecords = number
+        
+        guard let appDelegate =
+          UIApplication.shared.delegate as? AppDelegate else {
+          return
         }
+        self.appDelegate = appDelegate
         
     }
     
@@ -58,14 +65,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
-    // Getting the path directory
-    func getDirectory() -> URL
-    {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = paths[0]
-        return documentDirectory
-    }
-    
     //Displays alert message
     func displayAlert(title:String, message:String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -74,12 +73,36 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     
+    // Getting the path directory
+    func getDirectory() -> URL
+    {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = paths[0]
+        return documentDirectory
+    }
+    
+    func getRecordingsFolder() throws -> URL {
+        let fileName = getDirectory().appendingPathComponent("Vocalize").appendingPathComponent("Recordings")
+        
+        
+        var isDirectory: ObjCBool = false
+        if !FileManager.default.fileExists(atPath: fileName.path, isDirectory: &isDirectory) {
+            //need to create a folder
+           try FileManager.default.createDirectory(at: fileName, withIntermediateDirectories: true, attributes: nil)
+        }
+        return fileName
+    }
+    
+    
+    
     @IBAction func startRecording(_ sender: UIButton) {
-        //check if we have an active recorder
+        //check if we have an active recorder, if not start recording
         if audioRecorder == nil {
-            //need to start recording
-            numberOfRecords += 1
-            let filename = getDirectory().appendingPathComponent("\(numberOfRecords).m4a")
+            do {
+            //generate a unique string and append that to the folder where it holds all the recordings
+            currentRecordingId = UUID().uuidString
+            let filename = try getRecordingsFolder().appendingPathComponent("\(currentRecordingId).m4a")
+            
             
             
             //the format the recording we want it to be in
@@ -87,7 +110,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             
             
             //start audio recording
-            do {
                 audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.record()
@@ -102,9 +124,14 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             audioRecorder = nil
             recordButton.setImage(UIImage(named: "Record"), for: UIControl.State.normal)
             
-            //To make sure the recording number starts from the most recent one
-            // ["myNumber": numberOfRecords]
-            UserDefaults.standard.set(numberOfRecords, forKey: "myNumber")
+           //stop and save that recording to coredata?
+//            do {
+                appDelegate.saveRecording(fileName: currentRecordingId, displayName: appDelegate.newDefaultDisplayName() )
+                
+//            } catch {
+//                displayAlert(title: "Ooops!", message: "Recording Failed :(")
+//            }
+            
         }
     }
     

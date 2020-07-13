@@ -9,25 +9,31 @@
 import Foundation
 import UIKit
 import AVFoundation
+import CoreData
 
 class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     
-    var numberOfRecords: Int = 0
+    
     var audioplayer:AVAudioPlayer!
-    var indexOfCurrentRecording:Int = 0
+    var indexOfCurrentRecording:Int = -1
     @IBOutlet weak var myTableView: UITableView!
     var isRecordingBeingPlayed:Bool = false
-   
+    var appDelegate: AppDelegate!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if let number:Int = UserDefaults.standard.object(forKey: "myNumber") as? Int {
-            numberOfRecords = number
+        
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
         }
+        self.appDelegate = appDelegate
+    
     }
+    
     
     // Getting the path directory
     func getDirectory() -> URL
@@ -37,6 +43,19 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         return documentDirectory
     }
     
+    //getting the folder directory
+    func getRecordingsFolder() throws -> URL {
+        let fileName = getDirectory().appendingPathComponent("Vocalize").appendingPathComponent("Recordings")
+        
+        
+        var isDirectory: ObjCBool = false
+        if !FileManager.default.fileExists(atPath: fileName.path, isDirectory: &isDirectory) {
+            //need to create a folder
+            try FileManager.default.createDirectory(at: fileName, withIntermediateDirectories: true, attributes: nil)
+        }
+        return fileName
+    }
+    
     //Displays alert message
     func displayAlert(title:String, message:String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -44,40 +63,18 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         present(alert, animated: true, completion: nil)
     }
     
-    func getRecordingFileName(index:Int) -> URL {
-        return getDirectory().appendingPathComponent("\(index + 1).m4a")
+    //getting folder for where the recordings are being saved at
+    func getRecordingFileName(_ fileName:String) throws -> URL {
+        return try getRecordingsFolder().appendingPathComponent("\(fileName).m4a")
     }
     
-    //play the audio
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let path = getRecordingFileName(index: indexPath.row + 1)
-//        do {
-//            audioplayer = try AVAudioPlayer(contentsOf: path)
-//            audioplayer.play()
-//        } catch {
-//            displayAlert(title: "Ooops", message: "Recording Failed :(")
-//
-//        }
-//    }
-    
-    /**
-    
-     Cell is tapped ->
-     if indexOfCell == indexOfCurrentRecording {
-        set isRecordingBeingPlayed = !isRecordingBeingPlayed
-     } else {
-        set isRecordingBeingPlayed (for indexOfCurrentRecording) = false
-        indexOfCurrentRecording = indexOfCell
-        set isRecordingBeingPlayed (for currentCell) = true
-     }
-     */
-    
+    //playing audio
     func playAudio(index:Int) {
         
         // if clicked on existing cell
         if index == indexOfCurrentRecording {
             if isRecordingBeingPlayed {
-               isRecordingBeingPlayed = false
+                isRecordingBeingPlayed = false
                 // Pause exiting recording if any
                 if audioplayer != nil {
                     audioplayer.pause()
@@ -90,7 +87,7 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
                     audioplayer.play()
                 }
             }
-        //clicked on a different recording/cell
+            //clicked on a different recording/cell
         } else {
             // Pause exiting recording if any
             if audioplayer != nil {
@@ -104,8 +101,11 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
             indexOfCurrentRecording = index
             isRecordingBeingPlayed = true
             // Play new selected recording
-            let path = getRecordingFileName(index: indexOfCurrentRecording)
+            let filename = appDelegate.recordings[indexOfCurrentRecording].value(forKey: "fileName") as! String
+            
+            
             do {
+                let path = try getRecordingFileName(filename)
                 audioplayer = try AVAudioPlayer(contentsOf: path)
                 audioplayer.play()
             } catch {
@@ -122,11 +122,11 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
     
     
     //changing image
-  func changeButtonImage(_ button: UIButton, play: Bool) {
-      UIView.transition(with: button, duration: 0.4,
-                        options: .transitionCrossDissolve, animations: {
-        button.setImage(UIImage(named: play ? "pause" : "play"), for: .normal)
-      }, completion: nil)
+    func changeButtonImage(_ button: UIButton, play: Bool) {
+        UIView.transition(with: button, duration: 0.4,
+                          options: .transitionCrossDissolve, animations: {
+                            button.setImage(UIImage(named: play ? "pause" : "play"), for: .normal)
+        }, completion: nil)
     }
     
     
@@ -134,37 +134,49 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
     
     //getting the row position of button
     func getViewIndexInTableView(tableView: UITableView, view: UIView) -> IndexPath? {
-      let pos = view.convert(CGPoint.zero, to: tableView)
-      return tableView.indexPathForRow(at: pos)
+        let pos = view.convert(CGPoint.zero, to: tableView)
+        return tableView.indexPathForRow(at: pos)
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
-      // Let's localize the index of the button using a helper method
-      // and also localize the Song i the database
-      if let indexPath = getViewIndexInTableView(tableView: myTableView, view: sender){
-        playAudio(index: indexPath.row)
-          // Change the tapped button to a Stop image
-        //changeButtonImage(sender, play: false)
-      }
+        // Let's localize the index of the button using a helper method
+        // and also localize the Song i the database
+        if let indexPath = getViewIndexInTableView(tableView: myTableView, view: sender){
+            playAudio(index: indexPath.row)
+            // Change the tapped button to a Stop image
+            //changeButtonImage(sender, play: false)
+        }
     }
     
     
-
     
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return numberOfRecords
-        }
     
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! ListViewCell
-            
-            cell.audioLabel.text = String(indexPath.row + 1)
-            
-            //selector is a method reference
-              cell.playPause.addTarget(self, action: #selector(buttonTapped(_:)),
-                                  for: .touchUpInside)
-            return cell
-        }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return appDelegate.recordings.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! ListViewCell
+        
+        let recording = appDelegate.recordings[indexPath.row]
+        let name = recording.value(forKeyPath: "displayName") as? String
+        cell.audioLabel.text = name
+        
+        //selector is a method reference
+        cell.playPause.addTarget(self, action: #selector(buttonTapped(_:)),
+                                 for: .touchUpInside)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        //deleting from coreData
+        appDelegate.deleteRecording(indexPath: indexPath.row)
+        //deleting from the array
+        appDelegate.recordings.remove(at: indexPath.row)
+//        let indexPaths = [indexPath]
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
     
 }
 

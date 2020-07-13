@@ -51,7 +51,7 @@
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="93.75"/>
         </scene>
-        <!--List View Controller-->
+        <!--My Enteries-->
         <scene sceneID="38w-HC-zLe">
             <objects>
                 <viewController id="5cu-mE-0ir" customClass="ListViewController" customModule="Vocalize" customModuleProvider="target" sceneMemberID="viewController">
@@ -78,7 +78,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBc-vg-9el">
-                                                    <rect key="frame" x="338" y="0.0" width="60" height="60.5"/>
+                                                    <rect key="frame" x="338" y="0.5" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="5sh-Sy-fzz"/>
                                                         <constraint firstAttribute="width" constant="60" id="XQD-SQ-j7z"/>
@@ -87,10 +87,10 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="bvW-nD-pxb" firstAttribute="leading" secondItem="t05-s6-PxG" secondAttribute="leadingMargin" constant="16" id="6Wn-bP-q56"/>
-                                                <constraint firstItem="bvW-nD-pxb" firstAttribute="centerY" secondItem="t05-s6-PxG" secondAttribute="centerY" id="Dt1-gY-MCl"/>
-                                                <constraint firstItem="DBc-vg-9el" firstAttribute="top" secondItem="t05-s6-PxG" secondAttribute="top" id="YIi-ag-xOq"/>
-                                                <constraint firstAttribute="trailing" secondItem="DBc-vg-9el" secondAttribute="trailing" constant="16" id="cDz-yB-xtX"/>
+                                                <constraint firstItem="bvW-nD-pxb" firstAttribute="leading" secondItem="t05-s6-PxG" secondAttribute="leadingMargin" priority="750" constant="16" id="6Wn-bP-q56"/>
+                                                <constraint firstItem="bvW-nD-pxb" firstAttribute="centerY" secondItem="t05-s6-PxG" secondAttribute="centerY" priority="750" id="Dt1-gY-MCl"/>
+                                                <constraint firstItem="DBc-vg-9el" firstAttribute="top" secondItem="t05-s6-PxG" secondAttribute="top" priority="750" id="YIi-ag-xOq"/>
+                                                <constraint firstAttribute="trailing" secondItem="DBc-vg-9el" secondAttribute="trailing" priority="750" constant="16" id="cDz-yB-xtX"/>
                                                 <constraint firstAttribute="bottom" secondItem="DBc-vg-9el" secondAttribute="bottom" id="imK-Gs-chb"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -109,7 +109,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="7kB-nJ-mKj"/>
                     </view>
-                    <navigationItem key="navigationItem" id="gJb-tU-46I"/>
+                    <navigationItem key="navigationItem" title="My Enteries" id="gJb-tU-46I"/>
                     <connections>
                         <outlet property="myTableView" destination="NgJ-oi-eNh" id="f29-SX-Iez"/>
                     </connections>

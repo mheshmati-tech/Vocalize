@@ -15,6 +15,7 @@
 		344F56B624B533C600E63F75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 344F56B424B533C600E63F75 /* LaunchScreen.storyboard */; };
 		344F56BE24B6887500E63F75 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344F56BD24B6887500E63F75 /* ListViewController.swift */; };
 		344F56C024B7F0C100E63F75 /* ListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344F56BF24B7F0C100E63F75 /* ListViewCell.swift */; };
+		34F2424B24BB79A30099D09D /* Vocalize.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 34F2424924BB79A30099D09D /* Vocalize.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		344F56B724B533C600E63F75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		344F56BD24B6887500E63F75 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		344F56BF24B7F0C100E63F75 /* ListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCell.swift; sourceTree = "<group>"; };
+		34F2424A24BB79A30099D09D /* Vocalize.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vocalize.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				344F56A924B533C400E63F75 /* AppDelegate.swift */,
+				34F2424924BB79A30099D09D /* Vocalize.xcdatamodeld */,
 				344F56AB24B533C400E63F75 /* SceneDelegate.swift */,
 				344F56AD24B533C400E63F75 /* ViewController.swift */,
 				344F56AF24B533C400E63F75 /* Main.storyboard */,
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34F2424B24BB79A30099D09D /* Vocalize.xcdatamodeld in Sources */,
 				344F56AE24B533C400E63F75 /* ViewController.swift in Sources */,
 				344F56AA24B533C400E63F75 /* AppDelegate.swift in Sources */,
 				344F56C024B7F0C100E63F75 /* ListViewCell.swift in Sources */,
@@ -346,6 +350,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		34F2424924BB79A30099D09D /* Vocalize.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				34F2424A24BB79A30099D09D /* Vocalize.xcdatamodel */,
+			);
+			currentVersion = 34F2424A24BB79A30099D09D /* Vocalize.xcdatamodel */;
+			path = Vocalize.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 344F569E24B533C400E63F75 /* Project object */;
 }
