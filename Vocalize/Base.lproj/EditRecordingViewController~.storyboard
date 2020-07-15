@@ -72,19 +72,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvW-nD-pxb">
-                                                    <rect key="frame" x="36" y="20" width="42" height="20.5"/>
+                                                    <rect key="frame" x="36" y="20" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ogt-vx-EEl">
-                                                    <rect key="frame" x="20" y="51" width="319" height="2.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="progressTintColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="trackTintColor" red="0.66007372359154926" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </progressView>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBc-vg-9el">
-                                                    <rect key="frame" x="347" y="3" width="50" height="55"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBc-vg-9el">
+                                                    <rect key="frame" x="338" y="0.5" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="5sh-Sy-fzz"/>
                                                         <constraint firstAttribute="width" constant="60" id="XQD-SQ-j7z"/>
@@ -103,7 +97,6 @@
                                         <connections>
                                             <outlet property="audioLabel" destination="bvW-nD-pxb" id="8wJ-uc-fuF"/>
                                             <outlet property="playPause" destination="DBc-vg-9el" id="aBQ-Fg-ZTg"/>
-                                            <outlet property="progressBar" destination="ogt-vx-EEl" id="2hL-Sc-S8v"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -119,20 +112,26 @@
                     <navigationItem key="navigationItem" title="My Enteries" id="gJb-tU-46I"/>
                     <connections>
                         <outlet property="myTableView" destination="NgJ-oi-eNh" id="f29-SX-Iez"/>
-                        <segue destination="vmJ-Qe-Pr5" kind="presentation" identifier="toEditRecordingName" id="hK9-Co-z12"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="un1-nA-sWp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="966.66666666666674" y="93.75"/>
         </scene>
-        <!--EditRecordingController-->
-        <scene sceneID="xZT-u9-1zJ">
+        <!--View Controller-->
+        <scene sceneID="IRR-OA-A8B">
             <objects>
-                <viewControllerPlaceholder storyboardName="EditRecordingName" referencedIdentifier="EditRecordingController" id="vmJ-Qe-Pr5" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DU1-Nv-pgf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="currentContext" id="KfH-Fo-eLX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mvg-Ad-ghe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="5Y9-xJ-oVT"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nvd-gI-bI8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1829" y="58"/>
+            <point key="canvasLocation" x="1789" y="99"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

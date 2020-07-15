@@ -16,8 +16,9 @@ class ListViewCell: UITableViewCell {
     
     @IBOutlet weak var playPause: UIButton!
     
-//    @IBAction func playPauseButton(_ sender: UIButton) {
+    @IBOutlet weak var progressBar: UIProgressView!
+    //    @IBAction func playPauseButton(_ sender: UIButton) {
 //    }
-    
+
     
 }

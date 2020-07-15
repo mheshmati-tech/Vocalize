@@ -129,10 +129,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
     }
     
+    //Deleting
     func deleteRecording(indexPath:Int){
         let recording = recordings[indexPath]
         persistentContainer.viewContext.delete(recording)
         saveContext()
+    }
+    
+    //updating
+    func updateRecordingName(userEntryForDisplayName: String, indexOfRecordingBeingUpdated: Int) {
+        let context = self.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Recording")
+        //fetchRequest.predicate = NSPredicate()
+        do {
+            let recordings = try context.fetch(fetchRequest)
+            
+            let objectUpdate = recordings[indexOfRecordingBeingUpdated] as! NSManagedObject
+            objectUpdate.setValue(userEntryForDisplayName, forKey: "displayName")
+            do {
+                try context.save()
+            } catch {
+                print(error)
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
     }
 }
 

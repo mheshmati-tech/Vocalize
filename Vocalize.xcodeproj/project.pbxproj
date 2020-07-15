@@ -16,6 +16,8 @@
 		344F56BE24B6887500E63F75 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344F56BD24B6887500E63F75 /* ListViewController.swift */; };
 		344F56C024B7F0C100E63F75 /* ListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344F56BF24B7F0C100E63F75 /* ListViewCell.swift */; };
 		34F2424B24BB79A30099D09D /* Vocalize.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 34F2424924BB79A30099D09D /* Vocalize.xcdatamodeld */; };
+		34F2425124BD45CF0099D09D /* EditRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F2425024BD45CF0099D09D /* EditRecordingViewController.swift */; };
+		34F2425424BD466C0099D09D /* EditRecordingName.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34F2425224BD466C0099D09D /* EditRecordingName.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		344F56BD24B6887500E63F75 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		344F56BF24B7F0C100E63F75 /* ListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCell.swift; sourceTree = "<group>"; };
 		34F2424A24BB79A30099D09D /* Vocalize.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vocalize.xcdatamodel; sourceTree = "<group>"; };
+		34F2425024BD45CF0099D09D /* EditRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordingViewController.swift; sourceTree = "<group>"; };
+		34F2425324BD466C0099D09D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Vocalize/Base.lproj/EditRecordingName.storyboard; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 		344F56A824B533C400E63F75 /* Vocalize */ = {
 			isa = PBXGroup;
 			children = (
+				34F2424F24BD45600099D09D /* EditRecording */,
 				344F56A924B533C400E63F75 /* AppDelegate.swift */,
 				34F2424924BB79A30099D09D /* Vocalize.xcdatamodeld */,
 				344F56AB24B533C400E63F75 /* SceneDelegate.swift */,
@@ -74,6 +79,15 @@
 				344F56BF24B7F0C100E63F75 /* ListViewCell.swift */,
 			);
 			path = Vocalize;
+			sourceTree = "<group>";
+		};
+		34F2424F24BD45600099D09D /* EditRecording */ = {
+			isa = PBXGroup;
+			children = (
+				34F2425224BD466C0099D09D /* EditRecordingName.storyboard */,
+				34F2425024BD45CF0099D09D /* EditRecordingViewController.swift */,
+			);
+			path = EditRecording;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +151,7 @@
 				344F56B624B533C600E63F75 /* LaunchScreen.storyboard in Resources */,
 				344F56B324B533C600E63F75 /* Assets.xcassets in Resources */,
 				344F56B124B533C400E63F75 /* Main.storyboard in Resources */,
+				34F2425424BD466C0099D09D /* EditRecordingName.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +167,7 @@
 				344F56AA24B533C400E63F75 /* AppDelegate.swift in Sources */,
 				344F56C024B7F0C100E63F75 /* ListViewCell.swift in Sources */,
 				344F56BE24B6887500E63F75 /* ListViewController.swift in Sources */,
+				34F2425124BD45CF0099D09D /* EditRecordingViewController.swift in Sources */,
 				344F56AC24B533C400E63F75 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,6 +189,14 @@
 				344F56B524B533C600E63F75 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		34F2425224BD466C0099D09D /* EditRecordingName.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				34F2425324BD466C0099D09D /* Base */,
+			);
+			name = EditRecordingName.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

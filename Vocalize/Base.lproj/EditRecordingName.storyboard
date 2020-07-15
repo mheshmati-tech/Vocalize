@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Edit Recording View Controller-->
+        <scene sceneID="CAe-4K-f90">
+            <objects>
+                <viewController storyboardIdentifier="EditRecordingController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="X9m-JT-MSp" customClass="EditRecordingViewController" customModule="Vocalize" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VOy-7j-Nvb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k54-TZ-bNX">
+                                <rect key="frame" x="20" y="84" width="374" height="206"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gxQ-KS-4Z3">
+                                        <rect key="frame" x="8" y="70" width="358" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPt-PO-1VO">
+                                        <rect key="frame" x="8" y="112" width="168" height="81"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <state key="normal" title="Save"/>
+                                        <connections>
+                                            <action selector="save:" destination="X9m-JT-MSp" eventType="touchUpInside" id="09c-F3-iSv"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="str-Zg-YCL">
+                                        <rect key="frame" x="184" y="112" width="182" height="81"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancel:" destination="X9m-JT-MSp" eventType="touchUpInside" id="aPj-3f-c1z"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Edit Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Rh-Wl-GK8">
+                                        <rect key="frame" x="8" y="8" width="358" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="k54-TZ-bNX" firstAttribute="top" secondItem="SXy-HG-G2T" secondAttribute="top" constant="40" id="BGO-9e-9OR"/>
+                            <constraint firstItem="SXy-HG-G2T" firstAttribute="trailing" secondItem="k54-TZ-bNX" secondAttribute="trailing" constant="20" id="Wjv-bO-aoR"/>
+                            <constraint firstItem="k54-TZ-bNX" firstAttribute="leading" secondItem="SXy-HG-G2T" secondAttribute="leading" constant="20" id="aFf-wX-qF1"/>
+                            <constraint firstItem="SXy-HG-G2T" firstAttribute="bottom" secondItem="k54-TZ-bNX" secondAttribute="bottom" constant="572" id="lOB-Jt-bT0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="SXy-HG-G2T"/>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="str-Zg-YCL" id="TqT-u6-NDS"/>
+                        <outlet property="recordingTextField" destination="gxQ-KS-4Z3" id="LVp-T9-zdq"/>
+                        <outlet property="saveButton" destination="iPt-PO-1VO" id="Hwx-yp-NB3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tiX-tP-5Tv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1684.057971014493" y="88.392857142857139"/>
+        </scene>
+    </scenes>
+</document>

@@ -11,7 +11,7 @@ import UIKit
 import AVFoundation
 import CoreData
 
-class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate {
     
     
     
@@ -21,6 +21,9 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet weak var myTableView: UITableView!
     var isRecordingBeingPlayed:Bool = false
     var appDelegate: AppDelegate!
+    var recordingIndexToEdit: Int?
+    var updater : CADisplayLink! = nil
+   
     
     
     override func viewDidLoad() {
@@ -31,8 +34,23 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
                 return
         }
         self.appDelegate = appDelegate
-    
+        
     }
+    
+    
+    //index being set too late !!!!! bug
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toEditRecordingName" {
+            let popup = segue.destination as! EditRecordingViewController
+            popup.recordingIndexToEdit = self.recordingIndexToEdit
+           
+            
+            popup.doneSaving = {
+                [weak self] in self?.myTableView.reloadData()
+            }
+        }
+    }
+    
     
     
     // Getting the path directory
@@ -87,6 +105,8 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
                     audioplayer.play()
                 }
             }
+
+     
             //clicked on a different recording/cell
         } else {
             // Pause exiting recording if any
@@ -96,7 +116,9 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
             
             if let cell = myTableView.cellForRow(at: IndexPath(row: indexOfCurrentRecording, section: 0)) as? ListViewCell {
                 changeButtonImage(cell.playPause, play: false)
+                
             }
+            
             
             indexOfCurrentRecording = index
             isRecordingBeingPlayed = true
@@ -104,9 +126,11 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
             let filename = appDelegate.recordings[indexOfCurrentRecording].value(forKey: "fileName") as! String
             
             
+            
             do {
                 let path = try getRecordingFileName(filename)
                 audioplayer = try AVAudioPlayer(contentsOf: path)
+                audioplayer.delegate = self
                 audioplayer.play()
             } catch {
                 displayAlert(title: "Ooops", message: "Playing Audio Failed :(")
@@ -115,6 +139,24 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         
         if let cell = myTableView.cellForRow(at: IndexPath(row: indexOfCurrentRecording, section: 0)) as? ListViewCell {
             changeButtonImage(cell.playPause, play: isRecordingBeingPlayed)
+            updater = CADisplayLink(target: self, selector: #selector(self.trackAudio))
+            updater.preferredFramesPerSecond = 60
+            updater.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
+        }
+    }
+    
+    
+    //progression bar
+    @objc func trackAudio() {
+        if let cell = myTableView.cellForRow(at: IndexPath(row: indexOfCurrentRecording, section: 0)) as? ListViewCell {
+            let normalizedTime = Float(audioplayer.currentTime / audioplayer.duration)
+            cell.progressBar.progress = normalizedTime
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if let cell = myTableView.cellForRow(at: IndexPath(row: indexOfCurrentRecording, section: 0)) as? ListViewCell {
+            changeButtonImage(cell.playPause, play: false)
         }
     }
     
@@ -165,19 +207,43 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         //selector is a method reference
         cell.playPause.addTarget(self, action: #selector(buttonTapped(_:)),
                                  for: .touchUpInside)
+      
+        cell.progressBar.progress = 0.0
+    
         return cell
     }
     
+    //deleting a recording
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         //deleting from coreData
         appDelegate.deleteRecording(indexPath: indexPath.row)
         //deleting from the array
         appDelegate.recordings.remove(at: indexPath.row)
-//        let indexPaths = [indexPath]
+        //        let indexPaths = [indexPath]
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
+    //editing a recording's name
+    func tableView(_ tableView: UITableView,
+                   leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let edit = UIContextualAction(style: .normal, title: "Edit") {(contextualAction, view, actionPerformed: (Bool) -> ()) in     self.recordingIndexToEdit = indexPath.row
+            self.performSegue(withIdentifier: "toEditRecordingName", sender: nil)
+            print(indexPath.row)
+            actionPerformed(true)
+        }
+        edit.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        
+        
+        
+        return UISwipeActionsConfiguration(actions: [edit])
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // Change this value to modify the cell's height
+        return 64
+    }
 }
 
 
