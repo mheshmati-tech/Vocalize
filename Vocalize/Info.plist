@@ -45,6 +45,8 @@
 	<string>Do you allow Vocalize to access the mic on your device?</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Do you allow Vocalize to transcribe your audio entering?</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

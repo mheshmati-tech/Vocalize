@@ -60,7 +60,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NgJ-oi-eNh">
-                                <rect key="frame" x="0.0" y="226" width="414" height="636"/>
+                                <rect key="frame" x="-8" y="226" width="414" height="636"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -91,6 +91,11 @@
                                                     </constraints>
                                                     <state key="normal" image="play"/>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1g-Ma-0fe">
+                                                    <rect key="frame" x="277" y="6" width="62" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="Paper"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="bvW-nD-pxb" firstAttribute="leading" secondItem="t05-s6-PxG" secondAttribute="leadingMargin" priority="750" constant="16" id="6Wn-bP-q56"/>
@@ -104,6 +109,7 @@
                                             <outlet property="audioLabel" destination="bvW-nD-pxb" id="8wJ-uc-fuF"/>
                                             <outlet property="playPause" destination="DBc-vg-9el" id="aBQ-Fg-ZTg"/>
                                             <outlet property="progressBar" destination="ogt-vx-EEl" id="2hL-Sc-S8v"/>
+                                            <outlet property="transcriptionButton" destination="c1g-Ma-0fe" id="TBL-z7-5IQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -120,11 +126,39 @@
                     <connections>
                         <outlet property="myTableView" destination="NgJ-oi-eNh" id="f29-SX-Iez"/>
                         <segue destination="vmJ-Qe-Pr5" kind="presentation" identifier="toEditRecordingName" id="hK9-Co-z12"/>
+                        <segue destination="xnN-xp-zZa" kind="presentation" identifier="showTextOfRecording" id="msh-Ae-8PL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="un1-nA-sWp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="966.66666666666674" y="93.75"/>
+            <point key="canvasLocation" x="973.91304347826099" y="-120.53571428571428"/>
+        </scene>
+        <!--Audio Transcription View Controller-->
+        <scene sceneID="CWw-wK-SgC">
+            <objects>
+                <viewController id="xnN-xp-zZa" customClass="AudioTranscriptionViewController" customModule="Vocalize" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FYc-oW-j3u">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zef-0w-n98">
+                                <rect key="frame" x="20" y="184" width="374" height="546"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="UBk-Z0-KRd"/>
+                    </view>
+                    <connections>
+                        <outlet property="transcribeText" destination="Zef-0w-n98" id="AeC-ae-Spc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oaD-9a-nu9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1721.7391304347827" y="-445.3125"/>
         </scene>
         <!--EditRecordingController-->
         <scene sceneID="xZT-u9-1zJ">
@@ -139,6 +173,7 @@
         <segue reference="dZ0-O4-Uxb"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="Paper" width="341" height="341"/>
         <image name="Record" width="341" height="341"/>
         <image name="play" width="341" height="341"/>
     </resources>

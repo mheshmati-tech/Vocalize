@@ -8,17 +8,10 @@
 
 import Foundation
 import UIKit
-
 class ListViewCell: UITableViewCell {
-    
-    
-    @IBOutlet weak var audioLabel: UILabel!
-    
-    @IBOutlet weak var playPause: UIButton!
-    
-    @IBOutlet weak var progressBar: UIProgressView!
-    //    @IBAction func playPauseButton(_ sender: UIButton) {
-//    }
 
-    
+    @IBOutlet weak var audioLabel: UILabel!
+    @IBOutlet weak var playPause: UIButton!
+    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var transcriptionButton: UIButton!
 }

@@ -10,20 +10,22 @@ import Foundation
 import UIKit
 import AVFoundation
 import CoreData
+import Speech
 
-class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate {
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate, SFSpeechRecognizerDelegate {
     
     
     
-    
+    var appDelegate: AppDelegate!
     var audioplayer:AVAudioPlayer!
-    var indexOfCurrentRecording:Int = -1
     @IBOutlet weak var myTableView: UITableView!
     var isRecordingBeingPlayed:Bool = false
-    var appDelegate: AppDelegate!
+    var indexOfCurrentRecording:Int = -1 ///?? why is this -1
     var recordingIndexToEdit: Int?
     var updater : CADisplayLink! = nil
-   
+    var pendingAudioTranscription: NSManagedObject!
+    var isTranscriptionEnabled:Bool?
+    
     
     
     override func viewDidLoad() {
@@ -34,57 +36,35 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
                 return
         }
         self.appDelegate = appDelegate
-        
     }
     
     
-    //index being set too late !!!!! bug
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toEditRecordingName" {
             let popup = segue.destination as! EditRecordingViewController
             popup.recordingIndexToEdit = self.recordingIndexToEdit
-           
             
             popup.doneSaving = {
                 [weak self] in self?.myTableView.reloadData()
             }
+        } else if segue.identifier == "showTextOfRecording" {
+            let transcribe = segue.destination as! AudioTranscriptionViewController
+            transcribe.recordingToTranscribe = self.pendingAudioTranscription
+    
         }
     }
     
-    
-    
-    // Getting the path directory
-    func getDirectory() -> URL
-    {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentDirectory = paths[0]
-        return documentDirectory
-    }
-    
-    //getting the folder directory
-    func getRecordingsFolder() throws -> URL {
-        let fileName = getDirectory().appendingPathComponent("Vocalize").appendingPathComponent("Recordings")
-        
-        
-        var isDirectory: ObjCBool = false
-        if !FileManager.default.fileExists(atPath: fileName.path, isDirectory: &isDirectory) {
-            //need to create a folder
-            try FileManager.default.createDirectory(at: fileName, withIntermediateDirectories: true, attributes: nil)
-        }
-        return fileName
-    }
     
     //Displays alert message
-    func displayAlert(title:String, message:String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
+     func displayAlert(title:String, message:String) {
+         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+         present(alert, animated: true, completion: nil)
+     }
     
-    //getting folder for where the recordings are being saved at
-    func getRecordingFileName(_ fileName:String) throws -> URL {
-        return try getRecordingsFolder().appendingPathComponent("\(fileName).m4a")
-    }
+ 
+    
     
     //playing audio
     func playAudio(index:Int) {
@@ -105,8 +85,8 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
                     audioplayer.play()
                 }
             }
-
-     
+            
+            
             //clicked on a different recording/cell
         } else {
             // Pause exiting recording if any
@@ -128,7 +108,7 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
             
             
             do {
-                let path = try getRecordingFileName(filename)
+                let path = try FileHelper.getRecordingFileName(filename)
                 audioplayer = try AVAudioPlayer(contentsOf: path)
                 audioplayer.delegate = self
                 audioplayer.play()
@@ -144,7 +124,6 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
             updater.add(to: RunLoop.current, forMode: RunLoop.Mode.common)
         }
     }
-    
     
     //progression bar
     @objc func trackAudio() {
@@ -171,9 +150,15 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         }, completion: nil)
     }
     
-    
-    
-    
+
+    @objc func transcribeButtonAction(_ sender: UIButton) {
+        if let indexPath = getViewIndexInTableView(tableView: myTableView, view: sender){
+            pendingAudioTranscription = appDelegate.recordings[indexPath.row]
+            //making a segue here manually
+            performSegue(withIdentifier: "showTextOfRecording", sender: sender)
+        }
+    }
+
     //getting the row position of button
     func getViewIndexInTableView(tableView: UITableView, view: UIView) -> IndexPath? {
         let pos = view.convert(CGPoint.zero, to: tableView)
@@ -181,18 +166,13 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
-        // Let's localize the index of the button using a helper method
-        // and also localize the Song i the database
         if let indexPath = getViewIndexInTableView(tableView: myTableView, view: sender){
             playAudio(index: indexPath.row)
-            // Change the tapped button to a Stop image
-            //changeButtonImage(sender, play: false)
         }
     }
     
     
-    
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return appDelegate.recordings.count
     }
@@ -207,9 +187,13 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         //selector is a method reference
         cell.playPause.addTarget(self, action: #selector(buttonTapped(_:)),
                                  for: .touchUpInside)
-      
+        //selector for transcription button
+        
+        cell.transcriptionButton.addTarget(self, action: #selector(transcribeButtonAction(_:)) , for: .touchUpInside)
+        
+        
         cell.progressBar.progress = 0.0
-    
+        
         return cell
     }
     
@@ -220,7 +204,6 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
         appDelegate.deleteRecording(indexPath: indexPath.row)
         //deleting from the array
         appDelegate.recordings.remove(at: indexPath.row)
-        //        let indexPaths = [indexPath]
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
@@ -234,15 +217,15 @@ class ListViewController:UIViewController, UITableViewDelegate, UITableViewDataS
             actionPerformed(true)
         }
         edit.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        
-        
+        //edit.image = UIImage(contentsOfFile: "Pencil")
         
         return UISwipeActionsConfiguration(actions: [edit])
     }
     
+    //changing the height of the rows displayed 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // Change this value to modify the cell's height
-        return 64
+        return 92
     }
 }
 
