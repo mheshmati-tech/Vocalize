@@ -14,7 +14,7 @@ import CoreData
 //    func transcriptionPermission(permission:Bool)
 //}
 
-class AudioTranscriptionViewController: UIViewController, SFSpeechRecognizerDelegate {
+class AudioTranscriptionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +27,7 @@ class AudioTranscriptionViewController: UIViewController, SFSpeechRecognizerDele
         initializeLabel()
     }
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var transcribeText: UILabel!
     var recordingToTranscribe:NSManagedObject!
@@ -82,6 +83,7 @@ class AudioTranscriptionViewController: UIViewController, SFSpeechRecognizerDele
         let recognizer = SFSpeechRecognizer()
         let request = SFSpeechURLRecognitionRequest(url: url)
         
+        activityIndicator.startAnimating()
         // start recognition!
         recognizer?.recognitionTask(with: request) { [unowned self] (resultParameter, error) in
             // abort if we didn't get any transcription back
@@ -92,12 +94,6 @@ class AudioTranscriptionViewController: UIViewController, SFSpeechRecognizerDele
             
             // if we got the final transcription back, print it
             if result.isFinal {
-                // pull out the best transcription...
-                
-                //TODO: add a loading icon while waiting
-                //TODO: disable the button if the user has declined permission
-                //TODO:
-                //load transcription data from core data
                 self.updateRecording(transcription: result.bestTranscription.formattedString )
             }
         }
@@ -107,6 +103,7 @@ class AudioTranscriptionViewController: UIViewController, SFSpeechRecognizerDele
     func updateRecording(transcription:String){
         recordingToTranscribe.setValue(transcription, forKey: "transcription")
         self.transcribeText.text = transcription
+        activityIndicator.stopAnimating()
         appDelegate.saveContext()
     }
     

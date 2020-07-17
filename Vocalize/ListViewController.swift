@@ -24,7 +24,16 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var recordingIndexToEdit: Int?
     var updater : CADisplayLink! = nil
     var pendingAudioTranscription: NSManagedObject!
+    
+    // This variable is set to nil
     var isTranscriptionEnabled:Bool?
+    
+    /**
+     3 cases -
+        1. User has never given permission
+        2. User has given permission
+        3. User has denied permission
+     */
     
     
     
@@ -38,6 +47,11 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.appDelegate = appDelegate
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        myTableView.reloadData()
+    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -189,8 +203,21 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                                  for: .touchUpInside)
         //selector for transcription button
         
-        cell.transcriptionButton.addTarget(self, action: #selector(transcribeButtonAction(_:)) , for: .touchUpInside)
+        // Check for current audio permissions
+        // If not determined, or allowed - > show the button
+        // If denied -> don't show the button
         
+        switch SFSpeechRecognizer.authorizationStatus() {
+        case .authorized, .notDetermined:
+            //show this button when user has enabled transcription
+            cell.transcriptionButton.isHidden = false
+            cell.transcriptionButton.addTarget(self, action: #selector(transcribeButtonAction(_:)) , for: .touchUpInside)
+            // show the button
+        case .denied, .restricted:
+            cell.transcriptionButton.isHidden = true
+        @unknown default:
+            cell.transcriptionButton.isHidden = true
+        }
         
         cell.progressBar.progress = 0.0
         
