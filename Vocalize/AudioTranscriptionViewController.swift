@@ -25,6 +25,7 @@ class AudioTranscriptionViewController: UIViewController {
         }
         self.appDelegate = appDelegate
         initializeLabel()
+        
     }
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -32,16 +33,13 @@ class AudioTranscriptionViewController: UIViewController {
     @IBOutlet weak var transcribeText: UILabel!
     var recordingToTranscribe:NSManagedObject!
     var appDelegate: AppDelegate!
-    var isTranscriptionEnabled:Bool!
-//    var transcriptionDelegate: AudioTranscriptionDelegate?
-    
     
     //Displays alert message
-     func displayAlert(title:String, message:String) {
-         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-         present(alert, animated: true, completion: nil)
-     }
+    func displayAlert(title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     
     //permission
     func requestTranscribePermissions() {
@@ -52,16 +50,15 @@ class AudioTranscriptionViewController: UIViewController {
                     do {
                         let path = try FileHelper.getRecordingFileName((self.recordingToTranscribe.value(forKey: "fileName") as? String)!)
                         self.transcribeAudio(url: path)
-                        self.isTranscriptionEnabled = true
-//                        self.transcriptionDelegate?.transcriptionPermission(permission: true)
-//
+                        
+                        //
                     } catch {
                         self.displayAlert(title: "Permission Error", message: "Unable to find recording file to transcribe")
                     }
                 } else {
                     self.transcribeText.text = "Transcription permission was declined."
-                    self.isTranscriptionEnabled = false
-//                    self.transcriptionDelegate?.transcriptionPermission(permission: false)
+                    
+                    //
                 }
             }
         }
@@ -70,6 +67,7 @@ class AudioTranscriptionViewController: UIViewController {
     func initializeLabel(){
         if let transcripton = recordingToTranscribe.value(forKey: "transcription") as? String {
             transcribeText.text = transcripton
+            getSentimentAnalysis(from: urlString)
         } else {
             //we don't have trancription and need permission from user
             requestTranscribePermissions()
@@ -109,32 +107,107 @@ class AudioTranscriptionViewController: UIViewController {
     
     
     
-    
-    //    func authorizeSR() {
-    //        SFSpeechRecognizer.requestAuthorization { authStatus in
-    //
-    //            OperationQueue.main.addOperation {
-    //                switch authStatus {
-    //                case .authorized:
-    //                    self.transcriptionButton.isEnabled = true
-    //
-    //                case .denied:
-    //                    self.transcriptionButton.isEnabled = false
-    //                    self.transcriptionButton.setTitle("Speech recognition access denied by user", for: .disabled)
-    //
-    //                case .restricted:
-    //                    self.transcriptionButton.isEnabled = false
-    //                    self.transcriptionButton.setTitle("Speech recognition restricted on device", for: .disabled)
-    //
-    //                case .notDetermined:
-    //                    self.transcriptionButton.isEnabled = false
-    //                    self.transcriptionButton.setTitle("Speech recognition not authorized", for: .disabled)
-    //                }
-    //            }
-    //        }
-    //    }
+    //prepare json Data
     
     
     
+    
+    
+    
+    
+    let urlString = "https://vocalize.cognitiveservices.azure.com/text/analytics/v3.0/sentiment"
+    
+    private func getSentimentAnalysis(from url: String) {
+        let document = self.transcribeText.text
+        
+        let json: [String: Any] =
+            [
+                "documents": [
+                    [
+                        "language": "en",
+                        "id": "1",
+                        "text": document
+                    ]
+                ]
+        ]
+        
+        
+        
+        
+        let session = URLSession.shared
+        let url = URL(string: urlString)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("KEYID GOES HERE:)", forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
+        //TODO-- Change this later -- use a variable
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: json, options: [])
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request) {data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No Data")
+                return
+            }
+            
+            
+            
+            //decode JSON to object here
+            var sentimentData: Documents?
+            let decoder = JSONDecoder()
+            do {
+                sentimentData = try decoder.decode(Documents.self, from: data)
+                print(sentimentData)
+                
+            } catch {
+                print("Error Occured while decoding. \(error)")
+            }
+            
+            //            guard let finalResults = response else {
+            //                return
+            //            }
+            //            print(finalResults)
+            
+            //            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            //            if let responseJSON = responseJSON as? [String: Any] {
+            //                print(responseJSON)
+            //            }
+        }
+        
+        task.resume()
+    }
     
 }
+
+//Optional({
+//    documents =     (
+//                {
+//            confidenceScores =             {
+//                negative = 0;
+//                neutral = "0.98";
+//                positive = "0.02";
+//            };
+//            id = 1;
+//            sentences =             (
+//                                {
+//                    confidenceScores =                     {
+//                        negative = 0;
+//                        neutral = "0.98";
+//                        positive = "0.02";
+//                    };
+//                    length = 89;
+//                    offset = 0;
+//                    sentiment = neutral;
+//                    text = "We're making a new recording to see if the load button is going to keep your lady want it";
+//                }
+//            );
+//            sentiment = neutral;
+//            warnings =             (
+//            );
+//        }
+//    );
+//    errors =     (
+//    );
+//    modelVersion = "2020-04-01";
+//})
