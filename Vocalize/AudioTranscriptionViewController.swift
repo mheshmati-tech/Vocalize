@@ -33,6 +33,8 @@ class AudioTranscriptionViewController: UIViewController {
     @IBOutlet weak var transcribeText: UILabel!
     var recordingToTranscribe:NSManagedObject!
     var appDelegate: AppDelegate!
+    @IBOutlet weak var sentimentText: UILabel!
+    
     
     //Displays alert message
     func displayAlert(title:String, message:String) {
@@ -67,7 +69,8 @@ class AudioTranscriptionViewController: UIViewController {
     func initializeLabel(){
         if let transcripton = recordingToTranscribe.value(forKey: "transcription") as? String {
             transcribeText.text = transcripton
-            getSentimentAnalysis(from: urlString)
+            //getting the sentiment 
+            sentimentAnalysis()
         } else {
             //we don't have trancription and need permission from user
             requestTranscribePermissions()
@@ -106,20 +109,32 @@ class AudioTranscriptionViewController: UIViewController {
     }
     
     
+    func sentimentAnalysis(){
+        if let sentiment = recordingToTranscribe.value(forKey: "sentimentValue") as? String {
+            self.sentimentText.text = sentiment
+            print("I'm Fetching my sentiment BITCHESSSSSSS")
+            
+        } else {
+            //make the API call to get the sentiment
+            getSentimentAnalysis(from: urlString)
+        }
+    }
     
-    //prepare json Data
-    
-    
-    
-    
-    
+    func updateSentiment(sentimentValue:String){
+        recordingToTranscribe.setValue(sentimentValue, forKey: "sentimentValue")
+        self.sentimentText.text = sentimentValue
+        appDelegate.saveContext()
+    }
     
     
     let urlString = "https://vocalize.cognitiveservices.azure.com/text/analytics/v3.0/sentiment"
     
     private func getSentimentAnalysis(from url: String) {
-        let document = self.transcribeText.text
         
+        
+        
+        let document = self.transcribeText.text
+          //prepare json Data
         let json: [String: Any] =
             [
                 "documents": [
@@ -139,7 +154,7 @@ class AudioTranscriptionViewController: UIViewController {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("KEYID GOES HERE:)", forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
+        request.addValue("KEY KEY KEY:)", forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
         //TODO-- Change this later -- use a variable
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json, options: [])
@@ -158,16 +173,15 @@ class AudioTranscriptionViewController: UIViewController {
             let decoder = JSONDecoder()
             do {
                 sentimentData = try decoder.decode(Documents.self, from: data)
-                print(sentimentData)
+                self.updateSentiment(sentimentValue: (sentimentData?.documents[0].sentiment)!)
+                print("MAKING APIIIII CALLS YOOO")
                 
             } catch {
                 print("Error Occured while decoding. \(error)")
             }
             
-            //            guard let finalResults = response else {
-            //                return
-            //            }
-            //            print(finalResults)
+         
+            
             
             //            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             //            if let responseJSON = responseJSON as? [String: Any] {

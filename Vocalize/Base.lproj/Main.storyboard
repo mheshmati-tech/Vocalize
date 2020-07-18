@@ -152,12 +152,20 @@
                                 <rect key="frame" x="197" y="447" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ue4-Dd-ev2">
+                                <rect key="frame" x="175" y="38" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="UBk-Z0-KRd"/>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="0ta-mj-LyS" id="HlE-7Q-3Hz"/>
+                        <outlet property="sentimentText" destination="ue4-Dd-ev2" id="UfG-HC-XtU"/>
                         <outlet property="transcribeText" destination="Zef-0w-n98" id="AeC-ae-Spc"/>
                     </connections>
                 </viewController>
