@@ -29,14 +29,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="My Recordings"/>
                                 <connections>
-                                    <segue destination="5cu-mE-0ir" kind="presentation" id="dZ0-O4-Uxb">
+                                    <segue destination="5cu-mE-0ir" kind="presentation" identifier="recordings" id="dZ0-O4-Uxb">
                                         <segue key="commit" inheritsFrom="parent" id="e2y-kx-kzF"/>
                                         <segue key="preview" inheritsFrom="commit" id="wbs-79-Gu6"/>
                                     </segue>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="rmr-u4-0ZF" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="EVe-s1-RA4"/>
                             <constraint firstItem="rmr-u4-0ZF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ijs-Nv-Jq9"/>

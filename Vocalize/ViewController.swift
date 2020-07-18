@@ -9,6 +9,9 @@
 import UIKit
 import AVFoundation
 import CoreData
+import StatusAlert
+///installing status alert
+///https://github.com/LowKostKustomz/StatusAlert
 
 
 class ViewController: UIViewController, AVAudioRecorderDelegate {
@@ -100,7 +103,24 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             recordButton.setImage(UIImage(named: "Record"), for: UIControl.State.normal)
             
             //stop and save that recording to coredata?
-            appDelegate.saveRecording(fileName: currentRecordingId, displayName: appDelegate.newDefaultDisplayName() )
+            appDelegate.saveRecording(fileName: currentRecordingId, displayName: appDelegate.newDefaultDisplayName())
+            
+            
+            // Creating StatusAlert instance
+            let statusAlert = StatusAlert()
+            //statusAlert.image = UIImage(named: "Some image name")
+            statusAlert.title = "Success"
+            statusAlert.message = "Your entry has been successfully saved!"
+            //statusAlert.canBePickedOrDismissed = true
+            //alertShowingDuration = 2
+
+            // Presenting created instance
+            statusAlert.showInKeyWindow()
+           
+            
+            
+
+
         }
     }
 }
