@@ -161,7 +161,7 @@ class AudioTranscriptionViewController: UIViewController {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("KEY KEY YEAH YEAH", forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
+        request.addValue(APIKey.ClientSecret, forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
         //TODO-- Change this later -- use a variable
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json, options: [])

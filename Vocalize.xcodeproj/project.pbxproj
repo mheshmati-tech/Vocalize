@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,7 @@
 		34644BA224C36E0E00C37E05 /* Sentiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34644BA124C36E0E00C37E05 /* Sentiment.swift */; };
 		34644BA424C36F5400C37E05 /* ConfidenceScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34644BA324C36F5400C37E05 /* ConfidenceScore.swift */; };
 		34644BA624C3791100C37E05 /* Documents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34644BA524C3791100C37E05 /* Documents.swift */; };
+		34644BA824C60E1800C37E05 /* APIsecrete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34644BA724C60E1800C37E05 /* APIsecrete.swift */; };
 		34F2424B24BB79A30099D09D /* Vocalize.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 34F2424924BB79A30099D09D /* Vocalize.xcdatamodeld */; };
 		34F2425124BD45CF0099D09D /* EditRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F2425024BD45CF0099D09D /* EditRecordingViewController.swift */; };
 		34F2425424BD466C0099D09D /* EditRecordingName.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34F2425224BD466C0099D09D /* EditRecordingName.storyboard */; };
@@ -43,6 +44,7 @@
 		34644BA124C36E0E00C37E05 /* Sentiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentiment.swift; sourceTree = "<group>"; };
 		34644BA324C36F5400C37E05 /* ConfidenceScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidenceScore.swift; sourceTree = "<group>"; };
 		34644BA524C3791100C37E05 /* Documents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Documents.swift; sourceTree = "<group>"; };
+		34644BA724C60E1800C37E05 /* APIsecrete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIsecrete.swift; path = /Users/mairbear/Developer/Ada_Projects/Vocalize_Capstone_Project/Vocalize/Vocalize/APIsecrete.swift; sourceTree = "<absolute>"; };
 		34F2424A24BB79A30099D09D /* Vocalize.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vocalize.xcdatamodel; sourceTree = "<group>"; };
 		34F2425024BD45CF0099D09D /* EditRecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRecordingViewController.swift; sourceTree = "<group>"; };
 		34F2425324BD466C0099D09D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Vocalize/Base.lproj/EditRecordingName.storyboard; sourceTree = SOURCE_ROOT; };
@@ -96,6 +98,7 @@
 				34F2424F24BD45600099D09D /* EditRecording */,
 				344F56A924B533C400E63F75 /* AppDelegate.swift */,
 				34F2424924BB79A30099D09D /* Vocalize.xcdatamodeld */,
+				34644BA724C60E1800C37E05 /* APIsecrete.swift */,
 				344F56AB24B533C400E63F75 /* SceneDelegate.swift */,
 				344F56AD24B533C400E63F75 /* ViewController.swift */,
 				344F56AF24B533C400E63F75 /* Main.storyboard */,
@@ -128,7 +131,6 @@
 				1EEC2EE52CCAF7AB5D3C818D /* Pods-Vocalize.debug.xcconfig */,
 				382A253B9D6406F567FDB050 /* Pods-Vocalize.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -257,6 +259,7 @@
 				344F56AA24B533C400E63F75 /* AppDelegate.swift in Sources */,
 				34644BA224C36E0E00C37E05 /* Sentiment.swift in Sources */,
 				344F56C024B7F0C100E63F75 /* ListViewCell.swift in Sources */,
+				34644BA824C60E1800C37E05 /* APIsecrete.swift in Sources */,
 				344F56BE24B6887500E63F75 /* ListViewController.swift in Sources */,
 				34F2425124BD45CF0099D09D /* EditRecordingViewController.swift in Sources */,
 				344F56AC24B533C400E63F75 /* SceneDelegate.swift in Sources */,

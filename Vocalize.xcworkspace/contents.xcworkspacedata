@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/mairbear/Developer/Ada_Projects/Vocalize_Capstone_Project/Vocalize/Vocalize/APIsecrete.swift">
+   </FileRef>
+   <FileRef
       location = "group:Vocalize.xcodeproj">
    </FileRef>
    <FileRef
