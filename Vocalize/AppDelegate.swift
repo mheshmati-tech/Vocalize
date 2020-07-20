@@ -107,9 +107,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Could not save. \(error), \(error.userInfo)")
       }
     }
+        
     
     func newDefaultDisplayName() -> String {
-        return "Recording number \(recordings.count + 1)"
+        let timestamp = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .medium, timeStyle: .short)
+        return "\(timestamp)"
     }
 
     
