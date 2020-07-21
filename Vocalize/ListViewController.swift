@@ -232,6 +232,9 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         //deleting from the array
         appDelegate.recordings.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+//        tableView.indexPath.backgroundColor = #colorLiteral(red: 1, green: 0.5176470588, blue: 0.4862745098, alpha: 1)
+//        tableView.indexPath.image = UIImage(systemName: "folder.badge.plus")
+        
     }
     
     //editing a recording's name
@@ -243,8 +246,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             print(indexPath.row)
             actionPerformed(true)
         }
-        edit.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        //edit.image = UIImage(contentsOfFile: "Pencil")
+        edit.backgroundColor = #colorLiteral(red: 0.9647058824, green: 0.6705882353, blue: 0.4235294118, alpha: 1)
+        edit.image = UIImage(systemName: "pencil")
         
         return UISwipeActionsConfiguration(actions: [edit])
     }
