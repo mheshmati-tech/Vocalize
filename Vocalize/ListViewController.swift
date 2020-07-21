@@ -160,7 +160,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func changeButtonImage(_ button: UIButton, play: Bool) {
         UIView.transition(with: button, duration: 0.4,
                           options: .transitionCrossDissolve, animations: {
-                            button.setImage(UIImage(named: play ? "pause" : "play"), for: .normal)
+                            button.setImage(UIImage(systemName: play ? "pause.fill" : "play.fill"), for: .normal)
         }, completion: nil)
     }
     

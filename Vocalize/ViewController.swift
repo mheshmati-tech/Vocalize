@@ -92,7 +92,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
                 audioRecorder.delegate = self
                 audioRecorder.record()
                 
-                recordButton.setImage(UIImage(named: "stop (1)"), for: UIControl.State.normal)
+                recordButton.setImage(UIImage(systemName: "mic.circle.fill"), for: UIControl.State.normal)
             } catch {
                 displayAlert(title: "Ooops!", message: "Recording Failed :(")
             }
@@ -100,7 +100,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             // stopping audio recording
             audioRecorder.stop()
             audioRecorder = nil
-            recordButton.setImage(UIImage(named: "rec"), for: UIControl.State.normal)
+            recordButton.setImage(UIImage(systemName: "mic.circle"), for: UIControl.State.normal)
             
             //stop and save that recording to coredata?
             appDelegate.saveRecording(fileName: currentRecordingId, displayName: appDelegate.newDefaultDisplayName())
@@ -108,7 +108,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             
             // Creating StatusAlert instance
             let statusAlert = StatusAlert()
-            //statusAlert.image = UIImage(named: "Some image name")
+            statusAlert.image = UIImage(systemName: "folder.badge.plus")
             statusAlert.title = "Success"
             statusAlert.message = "Your entry has been successfully saved!"
             //statusAlert.canBePickedOrDismissed = true

@@ -108,12 +108,20 @@
 				344F56BD24B6887500E63F75 /* ListViewController.swift */,
 				34F2425724BF874A0099D09D /* FileHelperMethods.swift */,
 				34F2425524BF71F40099D09D /* AudioTranscriptionViewController.swift */,
-				34644BA524C3791100C37E05 /* Documents.swift */,
-				34644BA124C36E0E00C37E05 /* Sentiment.swift */,
-				34644BA324C36F5400C37E05 /* ConfidenceScore.swift */,
+				348EF77C24C780F600EEC9E6 /* DocumentsFolder */,
 				344F56BF24B7F0C100E63F75 /* ListViewCell.swift */,
 			);
 			path = Vocalize;
+			sourceTree = "<group>";
+		};
+		348EF77C24C780F600EEC9E6 /* DocumentsFolder */ = {
+			isa = PBXGroup;
+			children = (
+				34644BA524C3791100C37E05 /* Documents.swift */,
+				34644BA124C36E0E00C37E05 /* Sentiment.swift */,
+				34644BA324C36F5400C37E05 /* ConfidenceScore.swift */,
+			);
+			path = DocumentsFolder;
 			sourceTree = "<group>";
 		};
 		34F2424F24BD45600099D09D /* EditRecording */ = {
