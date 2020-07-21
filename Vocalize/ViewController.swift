@@ -92,7 +92,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
                 audioRecorder.delegate = self
                 audioRecorder.record()
                 
-                recordButton.setImage(UIImage(named: "Stop"), for: UIControl.State.normal)
+                recordButton.setImage(UIImage(named: "stop (1)"), for: UIControl.State.normal)
             } catch {
                 displayAlert(title: "Ooops!", message: "Recording Failed :(")
             }
@@ -100,7 +100,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             // stopping audio recording
             audioRecorder.stop()
             audioRecorder = nil
-            recordButton.setImage(UIImage(named: "Record"), for: UIControl.State.normal)
+            recordButton.setImage(UIImage(named: "rec"), for: UIControl.State.normal)
             
             //stop and save that recording to coredata?
             appDelegate.saveRecording(fileName: currentRecordingId, displayName: appDelegate.newDefaultDisplayName())

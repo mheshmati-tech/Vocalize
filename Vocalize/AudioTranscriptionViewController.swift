@@ -43,6 +43,30 @@ class AudioTranscriptionViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    
+    
+    
+    
+    func initializeLabel(){
+        if let transcripton = recordingToTranscribe.value(forKey: "transcription") as? String {
+            updateTranscriptionLabel(transcriptionText: transcripton)
+            checkSentimentAnalysis()
+        } else {
+            // We don't have trancription and need permission from user
+            requestTranscribePermissions()
+        }
+    }
+    
+    
+    func updateTranscriptionLabel(transcriptionText:String){
+        self.transcribeText.text = transcriptionText
+    }
+    
+    
+    
+    
+    
+    
     //permission
     func requestTranscribePermissions() {
         SFSpeechRecognizer.requestAuthorization { [unowned self] authStatus in
@@ -51,7 +75,16 @@ class AudioTranscriptionViewController: UIViewController {
                     
                     do {
                         let path = try FileHelper.getRecordingFileName((self.recordingToTranscribe.value(forKey: "fileName") as? String)!)
-                        self.transcribeAudio(url: path)
+                        self.makeTranscriptionRequest(url: path, onCompletion: { transcribedText in
+                            self.activityIndicator.stopAnimating()
+                            // Update the label
+                            self.updateTranscriptionLabel(transcriptionText: transcribedText)
+                            // Save it to Core Data
+                            self.saveTranscriptionToCoreData(transcriptionValue: transcribedText)
+                            // Run sentiment analysis
+                            self.checkSentimentAnalysis()
+                            
+                        })
                         
                         //
                     } catch {
@@ -66,20 +99,77 @@ class AudioTranscriptionViewController: UIViewController {
         }
     }
     
-    func initializeLabel(){
-        if let transcripton = recordingToTranscribe.value(forKey: "transcription") as? String {
-            transcribeText.text = transcripton
-            //getting the sentiment
-            sentimentAnalysis()
+    
+    
+    func checkSentimentAnalysis(){
+        if let sentiment = recordingToTranscribe.value(forKey: "sentimentValue") as? String {
+            updateSentimentLabel(sentiment: sentiment)
         } else {
-            //we don't have trancription and need permission from user
-            requestTranscribePermissions()
+            // Make API request
+            makeSentimentAnalysisRequest(onCompletion: { documents in
+                let sentiment = documents!.documents[0].sentiment!
+                // Store it in Core Data
+                self.saveSentimentToCoreData(sentimentValue: sentiment)
+                // Update the label
+                self.updateSentimentLabel(sentiment: sentiment)
+            })
+            
+        }
+        
+    }
+    
+    func updateTranscriptionLabel(transcription:String) {
+        DispatchQueue.main.async {
+            self.transcribeText.text = transcription
         }
     }
     
+    func saveTranscriptionToCoreData(transcriptionValue:String){
+        recordingToTranscribe.setValue(transcriptionValue, forKey: "transcription")
+        appDelegate.saveContext()
+    }
     
-    //audio transcripption
-    func transcribeAudio(url: URL) {
+    func updateSentimentLabel(sentiment: String) {
+        DispatchQueue.main.async {
+            switch sentiment {
+            case "neutral":
+                self.sentimentText.text = "😶"
+            case "positive":
+                self.sentimentText.text = "😃"
+            case "negative":
+                self.sentimentText.text = "☹️"
+            default:
+                self.sentimentText.text = ""
+            }
+        }
+    }
+    
+    func saveSentimentToCoreData(sentimentValue:String){
+        recordingToTranscribe.setValue(sentimentValue, forKey: "sentimentValue")
+        appDelegate.saveContext()
+    }
+    
+    /**
+     1. Check if transcription is available locally
+     1. If yes, updateLabel
+     1. Check if sentiment is available locally
+     1. If yes, update sentimentLabel
+     2. If no, make Sentiment API call
+     1. Store it in Core Data
+     2. Update sentimentLabel
+     2. If no,
+     1. Get transcription permissions
+     If we already have permissions, we begin transcribing
+     If we don't, we ask for permissions
+     1. Make transcription request
+     1. Make Sentiment API call
+     1. Store it in Core Data
+     2. Update sentimentLabel
+     */
+    
+    
+    
+    func makeTranscriptionRequest(url: URL, onCompletion: @escaping (String) -> ()) {
         // create a new recognizer and point it at our audio
         let recognizer = SFSpeechRecognizer()
         let request = SFSpeechURLRecognitionRequest(url: url)
@@ -95,53 +185,17 @@ class AudioTranscriptionViewController: UIViewController {
             
             // if we got the final transcription back, print it
             if result.isFinal {
-                self.updateRecording(transcription: result.bestTranscription.formattedString )
+                onCompletion(result.bestTranscription.formattedString)
             }
         }
     }
     
     
-    func updateRecording(transcription:String){
-        recordingToTranscribe.setValue(transcription, forKey: "transcription")
-        self.transcribeText.text = transcription
-        activityIndicator.stopAnimating()
-        //TODO:::Should I call the API method here????
-        appDelegate.saveContext()
-    }
-    
-    
-    func sentimentAnalysis(){
-        if let sentiment = recordingToTranscribe.value(forKey: "sentimentValue") as? String {
-            switch sentiment {
-            case "neutral":
-                self.sentimentText.text = "😶"
-            case "positive":
-                self.sentimentText.text = "😃"
-            case "negative":
-                self.sentimentText.text = "☹️"
-            default:
-                self.sentimentText.text = ""
-            }
-           
-            print("I'm Fetching my sentiment BITCHESSSSSSS")
-            
-        } else {
-            //make the API call to get the sentiment
-            getSentimentAnalysis(from: urlString)
-        }
-    }
-    
-    func updateSentiment(sentimentValue:String){
-        recordingToTranscribe.setValue(sentimentValue, forKey: "sentimentValue")
-        appDelegate.saveContext()
-    }
-    
-    
-    let urlString = "https://vocalize.cognitiveservices.azure.com/text/analytics/v3.0/sentiment"
-    
-    private func getSentimentAnalysis(from url: String) {
+
+    func makeSentimentAnalysisRequest(onCompletion: @escaping (Documents?) -> ()) {
+        let urlString = "https://vocalize.cognitiveservices.azure.com/text/analytics/v3.0/sentiment"
         let document = self.transcribeText.text
-          //prepare json Data
+        //prepare json Data
         let json: [String: Any] =
             [
                 "documents": [
@@ -153,16 +207,11 @@ class AudioTranscriptionViewController: UIViewController {
                 ]
         ]
         
-        
-        
-        
-        let session = URLSession.shared
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(APIKey.ClientSecret, forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
-        //TODO-- Change this later -- use a variable
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json, options: [])
         request.httpBody = jsonData
@@ -173,62 +222,18 @@ class AudioTranscriptionViewController: UIViewController {
                 return
             }
             
-            
-            
-            //decode JSON to object here
             var sentimentData: Documents?
             let decoder = JSONDecoder()
             do {
                 sentimentData = try decoder.decode(Documents.self, from: data)
-                self.updateSentiment(sentimentValue: (sentimentData?.documents[0].sentiment)!)
-                print("MAKING APIIIII CALLS YOOO")
+                onCompletion(sentimentData)
                 
             } catch {
                 print("Error Occured while decoding. \(error)")
             }
-            
-         
-            
-            
-            //            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            //            if let responseJSON = responseJSON as? [String: Any] {
-            //                print(responseJSON)
-            //            }
         }
         
         task.resume()
     }
-    
 }
 
-//Optional({
-//    documents =     (
-//                {
-//            confidenceScores =             {
-//                negative = 0;
-//                neutral = "0.98";
-//                positive = "0.02";
-//            };
-//            id = 1;
-//            sentences =             (
-//                                {
-//                    confidenceScores =                     {
-//                        negative = 0;
-//                        neutral = "0.98";
-//                        positive = "0.02";
-//                    };
-//                    length = 89;
-//                    offset = 0;
-//                    sentiment = neutral;
-//                    text = "We're making a new recording to see if the load button is going to keep your lady want it";
-//                }
-//            );
-//            sentiment = neutral;
-//            warnings =             (
-//            );
-//        }
-//    );
-//    errors =     (
-//    );
-//    modelVersion = "2020-04-01";
-//})
