@@ -16,15 +16,21 @@ class EditRecordingViewController: UIViewController {
     var appDelegate: AppDelegate!
     var doneSaving: (() -> ())?
     
+    @IBOutlet weak var popUpView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        popUpView.backgroundColor = #colorLiteral(red: 0.6, green: 0.7215686275, blue: 0.5960784314, alpha: 1)
+        popUpView.layer.cornerRadius = 10
+       
         
         guard let appDelegate =
           UIApplication.shared.delegate as? AppDelegate else {
           return
         }
         self.appDelegate = appDelegate
+        
+       
 
         if let index = recordingIndexToEdit {
             let recording = appDelegate.recordings[index]

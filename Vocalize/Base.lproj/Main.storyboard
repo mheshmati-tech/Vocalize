@@ -77,53 +77,61 @@
                                 <color key="backgroundColor" red="0.15294117647058825" green="0.18431372549019609" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.15294117647058825" green="0.18431372549019609" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AudioRecordingCell" id="a0d-0w-wam" customClass="ListViewCell" customModule="Vocalize" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="60.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AudioRecordingCell" rowHeight="136" id="a0d-0w-wam" customClass="ListViewCell" customModule="Vocalize" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="136"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="a0d-0w-wam" id="t05-s6-PxG">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="136"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvW-nD-pxb">
-                                                    <rect key="frame" x="36" y="20" width="42" height="20.5"/>
-                                                    <color key="tintColor" red="0.89803921568627454" green="0.86274509803921573" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.89803921568627454" green="0.86274509803921573" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <color key="highlightedColor" red="0.89803921568627454" green="0.86274509803921573" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </label>
-                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ogt-vx-EEl">
-                                                    <rect key="frame" x="20" y="51" width="319" height="2.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="progressTintColor" red="0.36862745098039218" green="0.43529411764705883" blue="0.39215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ogt-vx-EEl">
+                                                    <rect key="frame" x="20" y="65.5" width="374" height="6"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="5" id="J5q-Pp-nTc"/>
+                                                    </constraints>
+                                                    <color key="progressTintColor" red="0.9882352941176471" green="0.76078431372549016" blue="0.40392156862745099" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="trackTintColor" red="0.92941176470588238" green="0.93000000715255737" blue="0.93000000715255737" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </progressView>
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBc-vg-9el">
-                                                    <rect key="frame" x="347" y="3" width="50" height="55"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="60" id="5sh-Sy-fzz"/>
-                                                        <constraint firstAttribute="width" constant="60" id="XQD-SQ-j7z"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="20" y="75" width="50" height="50"/>
                                                     <color key="tintColor" red="0.89803921568627454" green="0.86274509803921573" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" image="play.fill" catalog="system">
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="large" weight="thin"/>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="large" weight="thin"/>
                                                     </state>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1g-Ma-0fe">
-                                                    <rect key="frame" x="277" y="6" width="62" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1g-Ma-0fe">
+                                                    <rect key="frame" x="344" y="75" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="wfF-nx-2S7"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="tintColor" red="0.89803921568627454" green="0.86274509803921573" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" image="quote.bubble" catalog="system">
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="large" weight="thin"/>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="large" weight="thin"/>
                                                     </state>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvW-nD-pxb">
+                                                    <rect key="frame" x="20" y="11" width="374" height="35"/>
+                                                    <color key="tintColor" red="0.89803921568627454" green="0.86274509803921573" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <color key="textColor" red="0.89803921568627454" green="0.86274509803921573" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="highlightedColor" red="0.89803921568627454" green="0.86274509803921573" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" red="0.15294117647058825" green="0.18431372549019609" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstItem="bvW-nD-pxb" firstAttribute="leading" secondItem="t05-s6-PxG" secondAttribute="leadingMargin" priority="750" constant="16" id="6Wn-bP-q56"/>
-                                                <constraint firstItem="bvW-nD-pxb" firstAttribute="centerY" secondItem="t05-s6-PxG" secondAttribute="centerY" priority="750" id="Dt1-gY-MCl"/>
-                                                <constraint firstItem="DBc-vg-9el" firstAttribute="top" secondItem="t05-s6-PxG" secondAttribute="top" priority="750" id="YIi-ag-xOq"/>
-                                                <constraint firstAttribute="trailing" secondItem="DBc-vg-9el" secondAttribute="trailing" priority="750" constant="16" id="cDz-yB-xtX"/>
-                                                <constraint firstAttribute="bottom" secondItem="DBc-vg-9el" secondAttribute="bottom" id="imK-Gs-chb"/>
+                                                <constraint firstItem="c1g-Ma-0fe" firstAttribute="bottom" secondItem="DBc-vg-9el" secondAttribute="bottom" id="55v-hD-wXc"/>
+                                                <constraint firstItem="DBc-vg-9el" firstAttribute="top" secondItem="ogt-vx-EEl" secondAttribute="bottom" constant="5.5" id="7M6-z9-9Gn"/>
+                                                <constraint firstItem="c1g-Ma-0fe" firstAttribute="bottom" secondItem="t05-s6-PxG" secondAttribute="bottomMargin" id="Afh-FI-1wf"/>
+                                                <constraint firstItem="ogt-vx-EEl" firstAttribute="trailing" secondItem="c1g-Ma-0fe" secondAttribute="trailing" id="D56-fb-2Ra"/>
+                                                <constraint firstItem="ogt-vx-EEl" firstAttribute="trailing" secondItem="t05-s6-PxG" secondAttribute="trailingMargin" id="DzY-tg-zg7"/>
+                                                <constraint firstItem="ogt-vx-EEl" firstAttribute="top" secondItem="bvW-nD-pxb" secondAttribute="bottom" constant="22" id="Ec3-am-ynX"/>
+                                                <constraint firstItem="ogt-vx-EEl" firstAttribute="leading" secondItem="t05-s6-PxG" secondAttribute="leadingMargin" id="VmG-gX-xUf"/>
+                                                <constraint firstItem="ogt-vx-EEl" firstAttribute="leading" secondItem="DBc-vg-9el" secondAttribute="leading" id="WKa-t3-4Vm"/>
+                                                <constraint firstItem="ogt-vx-EEl" firstAttribute="centerY" secondItem="t05-s6-PxG" secondAttribute="centerY" id="fUb-3e-Rga"/>
+                                                <constraint firstItem="ogt-vx-EEl" firstAttribute="trailing" secondItem="bvW-nD-pxb" secondAttribute="trailing" id="gKC-GH-XJG"/>
+                                                <constraint firstItem="c1g-Ma-0fe" firstAttribute="top" secondItem="DBc-vg-9el" secondAttribute="top" id="vxh-hm-gg5"/>
+                                                <constraint firstItem="ogt-vx-EEl" firstAttribute="leading" secondItem="bvW-nD-pxb" secondAttribute="leading" id="yVM-sO-ukZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -142,20 +150,19 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="NgJ-oi-eNh" firstAttribute="leading" secondItem="p0E-ev-XYX" secondAttribute="leading" id="4Hn-Gs-wpM"/>
-                            <constraint firstItem="7kB-nJ-mKj" firstAttribute="trailing" secondItem="NgJ-oi-eNh" secondAttribute="trailing" id="5fT-tj-HCM"/>
-                            <constraint firstAttribute="bottom" secondItem="NgJ-oi-eNh" secondAttribute="bottom" id="8Py-3d-D3t"/>
-                            <constraint firstItem="NgJ-oi-eNh" firstAttribute="top" secondItem="p0E-ev-XYX" secondAttribute="top" id="Gt4-2z-GBb"/>
-                            <constraint firstAttribute="trailing" secondItem="NgJ-oi-eNh" secondAttribute="trailing" id="KIv-QP-GuR"/>
-                            <constraint firstAttribute="bottom" secondItem="NgJ-oi-eNh" secondAttribute="bottom" id="dYk-3z-bJi"/>
-                            <constraint firstItem="NgJ-oi-eNh" firstAttribute="leading" secondItem="p0E-ev-XYX" secondAttribute="leading" id="gTT-V5-vji"/>
+                            <constraint firstItem="NgJ-oi-eNh" firstAttribute="leading" secondItem="p0E-ev-XYX" secondAttribute="leading" id="3do-xj-wvV"/>
+                            <constraint firstItem="NgJ-oi-eNh" firstAttribute="centerX" secondItem="p0E-ev-XYX" secondAttribute="centerX" id="EP9-CK-VVv"/>
+                            <constraint firstItem="NgJ-oi-eNh" firstAttribute="top" secondItem="p0E-ev-XYX" secondAttribute="top" id="N4s-pL-gIe"/>
+                            <constraint firstAttribute="trailing" secondItem="NgJ-oi-eNh" secondAttribute="trailing" id="OKG-0L-2tW"/>
+                            <constraint firstAttribute="bottom" secondItem="NgJ-oi-eNh" secondAttribute="bottom" id="hXI-Rk-Ond"/>
+                            <constraint firstItem="NgJ-oi-eNh" firstAttribute="centerY" secondItem="p0E-ev-XYX" secondAttribute="centerY" id="oEy-YC-q6a"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7kB-nJ-mKj"/>
                     </view>
                     <navigationItem key="navigationItem" title="Enteries" largeTitleDisplayMode="always" id="gJb-tU-46I"/>
                     <connections>
                         <outlet property="myTableView" destination="NgJ-oi-eNh" id="f29-SX-Iez"/>
-                        <segue destination="vmJ-Qe-Pr5" kind="presentation" identifier="toEditRecordingName" id="hK9-Co-z12"/>
+                        <segue destination="vmJ-Qe-Pr5" kind="presentation" identifier="toEditRecordingName" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="hK9-Co-z12"/>
                         <segue destination="xnN-xp-zZa" kind="show" identifier="showTextOfRecording" id="msh-Ae-8PL"/>
                     </connections>
                 </viewController>
