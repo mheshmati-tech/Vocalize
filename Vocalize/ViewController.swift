@@ -93,6 +93,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
                 audioRecorder.record()
                 
                 recordButton.setImage(UIImage(systemName: "mic.circle.fill"), for: UIControl.State.normal)
+                recordButton.tintColor = #colorLiteral(red: 0.6, green: 0.7215686275, blue: 0.5960784314, alpha: 1)
             } catch {
                 displayAlert(title: "Ooops!", message: "Recording Failed :(")
             }
@@ -101,6 +102,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             audioRecorder.stop()
             audioRecorder = nil
             recordButton.setImage(UIImage(systemName: "mic.circle"), for: UIControl.State.normal)
+            recordButton.tintColor = #colorLiteral(red: 0.8980392157, green: 0.862745098, blue: 0.8, alpha: 1)
+            
             
             //stop and save that recording to coredata?
             appDelegate.saveRecording(fileName: currentRecordingId, displayName: appDelegate.newDefaultDisplayName())
@@ -108,11 +111,11 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             
             // Creating StatusAlert instance
             let statusAlert = StatusAlert()
-            statusAlert.image = UIImage(systemName: "folder.badge.plus")
+            statusAlert.image = UIImage(systemName: "waveform.path.badge.plus")
             statusAlert.title = "Success"
             statusAlert.message = "Your entry has been successfully saved!"
             //statusAlert.canBePickedOrDismissed = true
-            //alertShowingDuration = 2
+            statusAlert.alertShowingDuration = 3
 
             // Presenting created instance
             statusAlert.showInKeyWindow()

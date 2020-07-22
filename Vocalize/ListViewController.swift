@@ -255,8 +255,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     //changing the height of the rows displayed 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // Change this value to modify the cell's height
-        return 130
+        return 146
     }
 }
-
+  
 
