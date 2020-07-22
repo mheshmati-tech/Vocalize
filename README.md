@@ -10,18 +10,19 @@
 * [Installation](#installation)
 * [Further Enhancements](#enhancements)
 
-### Screenshots
-#### Sign In / Sign Up
-![SignIn](./images/OpenSignIn.gif)
-![SignUp](./images/SignUp.gif)
+##Introduction
 
-#### Search
-![Search](./images/Search.gif)
 
-#### Track
-![Track](./images/Track.gif)
-![View Info](./images/ViewInfo.gif)
-![Wishlist](./images/Wishlist.gif)
+##Learning Goals
 
-#### Profile
-![Profile](./images/Profile.gif)
+
+##Features
+
+
+##Technology Stack
+
+##Install Vocalize
+
+##Further Enhancement 
+
+
