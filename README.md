@@ -7,7 +7,7 @@
 * [Learning Goals](#learning-goals)
 * [App Features](#app-features)
 * [Technologies](#technology-stack)
-* [Installation](#installation)
+* [Installation](#install-vocalize)
 * [Further Enhancements](#enhancements)
 
 ## Introduction
@@ -22,7 +22,7 @@
 
 ## Technology Stack
 - Back-end: SQLite via CoreData Framework
-- Front-end: Swift 5 with XCode 11
+- Front-end: Swift 5 (using XCode 11)
 - APIS: Microsoft Azure Text Analysis API
 
 ## Install Vocalize
