@@ -1,9 +1,8 @@
 # Vocalize
 ## An ios app to capture your thoughts and feeling using your voice *Vocalize*. 
-
 ###### This is part of my 6 month classroom learning journey at Ada Developers Academy. 
-Built by Maryam (Mair) Heshmati. 
-[Ada Developers Academy Capstone Project](https://github.com/mheshmati-tech/Vocalize)  
+###### Built by Maryam (Mair) Heshmati. 
+###### [Ada Developers Academy Capstone Project](https://github.com/mheshmati-tech/Vocalize)  
 
 
 
