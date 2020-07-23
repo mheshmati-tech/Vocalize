@@ -50,5 +50,10 @@ I wanted to build an app that gives users the necessary tools to simplify and ea
 Build and run this project on an iPhone 11 or simulator with ios 13+. 
 
 ## Further Enhancement 
+Due to constraint in timing, these are future enhancements I'd like to make.
+1. Have a graph on a page to visualize the user's data (mood/sentiment) over time. 
+2. Incorporate more logic that takes into consideration the confidence score given back with every sentiment analysis API call to ensure accuracy.
+3. Add a tag-feature where each recording can be tagged and grouped/searched via their associated tag. 
+4. Customize mental health tools/resources for each user depending on their entries and sentiment analysis. 
 
 
