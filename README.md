@@ -17,7 +17,9 @@
 
 ## Introduction
 Do you ever start talking about something that's been on your mind and suddenly have a realization, or feel lighter because you were prompted to organize your thoughts better? Do you ever wonder, if there's a pattern with the day of the week and your mood? Do you ever have a great idea but don't have a pen and paper to write it down or better yet, do you ever feel like the speed of which your thoughts are generated does not match the speed of your writing? 
+
 I introduce to you *Vocalize*, meant to help users to journal and capture their thoughts, feelings, ideas, and mood on the go. 
+
 I wanted to build an app that gives users the necessary tools to simplify and ease reflection, a fundamental part of growth. "Reflection gives the brain an opportunity to pause amidst the chaos, untangle and sort through observations and experiences, consider multiple possible interpretations, and create meaning." With 90% of cell phone owners reporting they "frequently" carry their phone with them, this app makes journaling more accessible. The audio to transcription feature enables an effortless experience for a journal entry. Moreover, since the data is saved on the user's device and is not backed up to any cloud server, it makes the app more secure and ensures privacy of the user's intimate entries. 
 
 
