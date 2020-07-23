@@ -123,7 +123,7 @@
                                                     <color key="highlightedColor" red="0.89803921568627454" green="0.86274509803921573" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X77-3I-3Ui">
-                                                    <rect key="frame" x="341" y="100.5" width="0.0" height="0.0"/>
+                                                    <rect key="frame" x="354" y="100.5" width="0.0" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <color key="textColor" red="0.8980392157" green="0.86274509799999999" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -142,7 +142,7 @@
                                                 <constraint firstItem="ogt-vx-EEl" firstAttribute="leading" secondItem="DBc-vg-9el" secondAttribute="leading" id="WKa-t3-4Vm"/>
                                                 <constraint firstItem="ogt-vx-EEl" firstAttribute="centerY" secondItem="t05-s6-PxG" secondAttribute="centerY" id="fUb-3e-Rga"/>
                                                 <constraint firstItem="ogt-vx-EEl" firstAttribute="trailing" secondItem="bvW-nD-pxb" secondAttribute="trailing" id="gKC-GH-XJG"/>
-                                                <constraint firstItem="c1g-Ma-0fe" firstAttribute="leading" secondItem="X77-3I-3Ui" secondAttribute="trailing" constant="3" id="hr2-0L-wwc"/>
+                                                <constraint firstItem="c1g-Ma-0fe" firstAttribute="leading" secondItem="X77-3I-3Ui" secondAttribute="trailing" constant="-10" id="hr2-0L-wwc"/>
                                                 <constraint firstItem="c1g-Ma-0fe" firstAttribute="top" secondItem="DBc-vg-9el" secondAttribute="top" id="vxh-hm-gg5"/>
                                                 <constraint firstItem="ogt-vx-EEl" firstAttribute="leading" secondItem="bvW-nD-pxb" secondAttribute="leading" id="yVM-sO-ukZ"/>
                                             </constraints>
