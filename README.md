@@ -1,5 +1,5 @@
 # Vocalize
-## An ios app to capture your thoughts and feeling using your voice, to *Vocalize* your experiences. 
+## An ios app to capture your thoughts and feeling using your voice; to *Vocalize* your experiences. 
 ###### This app was built as my capstone project, reflecting the tremendous skills and knowledge gained through Ada's 6 months-long classroom curriculum. [Ada Developers Academy](https://adadevelopersacademy.org/) is a non-profit coding bootcamp for women and gender-diverse individuals, located in Seattle WA.
 ###### Built by [Maryam (Mair) Heshmati](https://www.linkedin.com/in/maryam-mair-heshmati-297a7710b/)
 ###### [Ada Developers Academy Capstone Project](https://github.com/mheshmati-tech/Vocalize)  
