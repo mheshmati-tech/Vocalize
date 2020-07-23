@@ -33,10 +33,11 @@ I wanted to build an app that gives users the necessary tools to simplify and ea
 
 
 ## Features
+
 <p align="center"> 
-     <img src="https://gfycat.com/showyunrulyliger"
-          alt="By Location Demo"
-          width="640"/>
+  <img height="400" src="https://user-images.githubusercontent.com/54689464/88349040-d9268e00-cd03-11ea-92b9-09a2049614b4.png" alt="Main Page">
+  <img height="400" src="https://user-images.githubusercontent.com/54689464/88349202-433f3300-cd04-11ea-8b6b-925739b857b8.png" alt="Library Page">
+  
 </p>
 
 
