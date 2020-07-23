@@ -34,7 +34,9 @@ I wanted to build an app that gives users the necessary tools to simplify and ea
 
 ## Features
 <p align="center"> 
-<iframe src='https://gfycat.com/ifr/ActiveCarefulBrahmancow' frameborder='0' scrolling='no' allowfullscreen width='640' height='404'></iframe><p> <a href="https://gfycat.com/activecarefulbrahmancow">via Gfycat</a></p>
+     <img src="https://gfycat.com/ifr/ShowyUnrulyLiger-size_restricted.gif"
+          alt="By Location Demo"
+          width="400"/>
 </p>
 
 
