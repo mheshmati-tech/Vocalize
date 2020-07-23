@@ -34,7 +34,7 @@ I wanted to build an app that gives users the necessary tools to simplify and ea
 
 ## Features
 <p align="center"> 
-     <img src="https://gfycat.com/ifr/ShowyUnrulyLiger.gif"
+     <img src="https://gfycat.com/showyunrulyliger"
           alt="By Location Demo"
           width="640"/>
 </p>
