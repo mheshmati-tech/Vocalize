@@ -93,7 +93,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
                 audioRecorder.record()
                 
                 recordButton.setImage(UIImage(systemName: "mic.circle.fill"), for: UIControl.State.normal)
-                recordButton.tintColor = #colorLiteral(red: 0.6, green: 0.7215686275, blue: 0.5960784314, alpha: 1)
+                recordButton.tintColor = #colorLiteral(red: 0.6549019608, green: 0.7529411765, blue: 0.6274509804, alpha: 1)
             } catch {
                 displayAlert(title: "Ooops!", message: "Recording Failed :(")
             }

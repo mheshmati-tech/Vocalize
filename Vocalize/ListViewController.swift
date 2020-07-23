@@ -51,6 +51,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewWillAppear(animated)
         
         myTableView.reloadData()
+        
     }
     
     
@@ -220,22 +221,25 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         cell.progressBar.progress = 0.0
+        if let sentiment = appDelegate.recordings[indexPath.row].value(forKey: "sentimentValue") as? String {
+            if sentiment == "positive" {
+                 cell.sentiment.text = "😃"
+            } else if sentiment == "negative" {
+                cell.sentiment.text = "☹️"
+            } else if sentiment == "neutral" {
+                cell.sentiment.text = "😐"
+            }
+
+               }
+        
+        //TODODOODODODODO
+        //cell.sentiment.setImage(UIImage(systemName: "mic.circle")
+        
         
         return cell
     }
     
-    //deleting a recording
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        //deleting from coreData
-        appDelegate.deleteRecording(indexPath: indexPath.row)
-        //deleting from the array
-        appDelegate.recordings.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-//        tableView.indexPath.backgroundColor = #colorLiteral(red: 1, green: 0.5176470588, blue: 0.4862745098, alpha: 1)
-//        tableView.indexPath.image = UIImage(systemName: "folder.badge.plus")
-        
-    }
+
     
     //editing a recording's name
     func tableView(_ tableView: UITableView,
@@ -250,6 +254,21 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         edit.image = UIImage(systemName: "pencil")
         
         return UISwipeActionsConfiguration(actions: [edit])
+    }
+    
+    //deleting recording
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Delete") {(contextualAction, view, actionPerformed: (Bool) -> ()) in
+            self.appDelegate.deleteRecording(indexPath: indexPath.row)
+            //deleting from the array
+            self.appDelegate.recordings.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            actionPerformed(true)
+        }
+        delete.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+        delete.image = UIImage(systemName: "trash")
+        
+        return UISwipeActionsConfiguration(actions: [delete])
     }
     
     //changing the height of the rows displayed 

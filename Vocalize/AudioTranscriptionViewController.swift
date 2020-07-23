@@ -29,11 +29,12 @@ class AudioTranscriptionViewController: UIViewController {
     }
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var transcribeText: UILabel!
+    
     var recordingToTranscribe:NSManagedObject!
     var appDelegate: AppDelegate!
     @IBOutlet weak var sentimentText: UILabel!
+    @IBOutlet weak var SentimentEmoji: UILabel!
     
     
     //Displays alert message
@@ -133,13 +134,17 @@ class AudioTranscriptionViewController: UIViewController {
         DispatchQueue.main.async {
             switch sentiment {
             case "neutral":
-                self.sentimentText.text = "😶"
+                self.sentimentText.text = "Overall feeling: Neutral"
+                self.SentimentEmoji.text = "😐"
             case "positive":
-                self.sentimentText.text = "😃"
+                self.sentimentText.text = "Overall feeling: Positive"
+                self.SentimentEmoji.text = "😃"
             case "negative":
-                self.sentimentText.text = "☹️"
+                self.sentimentText.text = "Overall feeling: Negative"
+                self.SentimentEmoji.text = "☹️"
             default:
                 self.sentimentText.text = ""
+                self.SentimentEmoji.text = ""
             }
         }
     }

@@ -14,4 +14,6 @@ class ListViewCell: UITableViewCell {
     @IBOutlet weak var playPause: UIButton!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var transcriptionButton: UIButton!
+    
+    @IBOutlet weak var sentiment: UILabel!
 }
