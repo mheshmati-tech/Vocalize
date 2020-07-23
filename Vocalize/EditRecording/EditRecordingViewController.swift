@@ -30,8 +30,7 @@ class EditRecordingViewController: UIViewController {
         }
         self.appDelegate = appDelegate
         
-       
-
+       //editing name 
         if let index = recordingIndexToEdit {
             let recording = appDelegate.recordings[index]
             recordingTextField.text = recording.value(forKeyPath: "displayName") as? String
@@ -39,21 +38,15 @@ class EditRecordingViewController: UIViewController {
     }
     
     @IBOutlet weak var recordingTextField: UITextField!
-    
     @IBOutlet weak var saveButton: UIButton!
-    
     @IBOutlet weak var cancelButton: UIButton!
-  
     @IBAction func save(_ sender: UIButton) {
-        
         if let doneSaving = doneSaving {
             doneSaving()
         }
         appDelegate.updateRecordingName(userEntryForDisplayName: (recordingTextField.text)!, indexOfRecordingBeingUpdated: recordingIndexToEdit!)
         dismiss(animated: true)
-        
     }
-    
     @IBAction func cancel(_ sender: UIButton) {
         dismiss(animated: true)
     }

@@ -14,8 +14,6 @@ import Speech
 
 class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate, SFSpeechRecognizerDelegate {
     
-    
-    
     var appDelegate: AppDelegate!
     var audioplayer:AVAudioPlayer!
     @IBOutlet weak var myTableView: UITableView!
@@ -24,18 +22,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     var recordingIndexToEdit: Int?
     var updater : CADisplayLink! = nil
     var pendingAudioTranscription: NSManagedObject!
-    
-    // This variable is set to nil
-    var isTranscriptionEnabled:Bool?
-    
-    /**
-     3 cases -
-        1. User has never given permission
-        2. User has given permission
-        3. User has denied permission
-     */
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,41 +35,34 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        //every time the table is rendered, it's reloaded
         myTableView.reloadData()
-        
     }
     
-    
+    //performing segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toEditRecordingName" {
             let popup = segue.destination as! EditRecordingViewController
             popup.recordingIndexToEdit = self.recordingIndexToEdit
-            
             popup.doneSaving = {
                 [weak self] in self?.myTableView.reloadData()
             }
         } else if segue.identifier == "showTextOfRecording" {
             let transcribe = segue.destination as! AudioTranscriptionViewController
             transcribe.recordingToTranscribe = self.pendingAudioTranscription
-    
         }
     }
     
-    
     //Displays alert message
-     func displayAlert(title:String, message:String) {
-         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-         present(alert, animated: true, completion: nil)
-     }
-    
- 
+    func displayAlert(title:String, message:String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     
     
     //playing audio
     func playAudio(index:Int) {
-        
         // if clicked on existing cell
         if index == indexOfCurrentRecording {
             if isRecordingBeingPlayed {
@@ -100,8 +79,6 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
                     audioplayer.play()
                 }
             }
-            
-            
             //clicked on a different recording/cell
         } else {
             // Pause exiting recording if any
@@ -111,17 +88,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             if let cell = myTableView.cellForRow(at: IndexPath(row: indexOfCurrentRecording, section: 0)) as? ListViewCell {
                 changeButtonImage(cell.playPause, play: false)
-                
             }
-            
             
             indexOfCurrentRecording = index
             isRecordingBeingPlayed = true
             // Play new selected recording
             let filename = appDelegate.recordings[indexOfCurrentRecording].value(forKey: "fileName") as! String
-            
-            
-            
             do {
                 let path = try FileHelper.getRecordingFileName(filename)
                 audioplayer = try AVAudioPlayer(contentsOf: path)
@@ -140,7 +112,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    //progression bar
+    //progression bar tracker
     @objc func trackAudio() {
         if let cell = myTableView.cellForRow(at: IndexPath(row: indexOfCurrentRecording, section: 0)) as? ListViewCell {
             let normalizedTime = Float(audioplayer.currentTime / audioplayer.duration)
@@ -148,14 +120,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    //did audio  finish playing
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if let cell = myTableView.cellForRow(at: IndexPath(row: indexOfCurrentRecording, section: 0)) as? ListViewCell {
             changeButtonImage(cell.playPause, play: false)
         }
     }
-    
-    
-    
     
     //changing image
     func changeButtonImage(_ button: UIButton, play: Bool) {
@@ -165,19 +135,18 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }, completion: nil)
     }
     
-
+    //getting the row position of button
+    func getViewIndexInTableView(tableView: UITableView, view: UIView) -> IndexPath? {
+        let pos = view.convert(CGPoint.zero, to: tableView)
+        return tableView.indexPathForRow(at: pos)
+    }
+    
     @objc func transcribeButtonAction(_ sender: UIButton) {
         if let indexPath = getViewIndexInTableView(tableView: myTableView, view: sender){
             pendingAudioTranscription = appDelegate.recordings[indexPath.row]
             //making a segue here manually
             performSegue(withIdentifier: "showTextOfRecording", sender: sender)
         }
-    }
-
-    //getting the row position of button
-    func getViewIndexInTableView(tableView: UITableView, view: UIView) -> IndexPath? {
-        let pos = view.convert(CGPoint.zero, to: tableView)
-        return tableView.indexPathForRow(at: pos)
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
@@ -187,11 +156,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
-
+    //The number of cells rendered
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return appDelegate.recordings.count
     }
     
+    //The content of each cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AudioRecordingCell", for: indexPath) as! ListViewCell
         
@@ -202,45 +172,32 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         //selector is a method reference
         cell.playPause.addTarget(self, action: #selector(buttonTapped(_:)),
                                  for: .touchUpInside)
-        //selector for transcription button
-        
-        // Check for current audio permissions
-        // If not determined, or allowed - > show the button
-        // If denied -> don't show the button
         
         switch SFSpeechRecognizer.authorizationStatus() {
         case .authorized, .notDetermined:
             //show this button when user has enabled transcription
             cell.transcriptionButton.isHidden = false
             cell.transcriptionButton.addTarget(self, action: #selector(transcribeButtonAction(_:)) , for: .touchUpInside)
-            // show the button
+        // show the button
         case .denied, .restricted:
             cell.transcriptionButton.isHidden = true
         @unknown default:
             cell.transcriptionButton.isHidden = true
         }
-        
         cell.progressBar.progress = 0.0
         if let sentiment = appDelegate.recordings[indexPath.row].value(forKey: "sentimentValue") as? String {
             if sentiment == "positive" {
-                 cell.sentiment.text = "😃"
+                cell.sentiment.text = "😃"
             } else if sentiment == "negative" {
                 cell.sentiment.text = "☹️"
             } else if sentiment == "neutral" {
                 cell.sentiment.text = "😐"
             }
-
-               }
-        
-        //TODODOODODODODO
-        //cell.sentiment.setImage(UIImage(systemName: "mic.circle")
-        
-        
+        }
         return cell
     }
     
-
-    
+    //Swiping actions
     //editing a recording's name
     func tableView(_ tableView: UITableView,
                    leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -267,15 +224,13 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         delete.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
         delete.image = UIImage(systemName: "trash")
-        
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
     //changing the height of the rows displayed 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // Change this value to modify the cell's height
         return 146
     }
 }
-  
+
 

@@ -10,20 +10,14 @@ import UIKit
 import AVFoundation
 import CoreData
 import StatusAlert
-///installing status alert
-///https://github.com/LowKostKustomz/StatusAlert
-
 
 class ViewController: UIViewController, AVAudioRecorderDelegate {
-    
     
     var appDelegate: AppDelegate!
     var recordingSession:AVAudioSession!
     var audioRecorder:AVAudioRecorder!
     var isAudioRecordingGranted: Bool!
     var currentRecordingId: String = ""
-    
-    
     @IBOutlet weak var recordButton: UIButton! // aka buttonLabel
     
     override func viewDidLoad() {
@@ -38,7 +32,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
                 return
         }
         self.appDelegate = appDelegate
-        
     }
     
     //Asking for permission
@@ -64,7 +57,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             break
         }
     }
-
+    
     //Displays alert message
     func displayAlert(title:String, message:String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -81,11 +74,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
                 currentRecordingId = UUID().uuidString
                 let filename = try FileHelper.getRecordingFileName(currentRecordingId)
                 
-                
-                
                 //the format the recording we want it to be in
                 let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 32000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue]
-                
                 
                 //start audio recording
                 audioRecorder = try AVAudioRecorder(url: filename, settings: settings)
@@ -104,26 +94,18 @@ class ViewController: UIViewController, AVAudioRecorderDelegate {
             recordButton.setImage(UIImage(systemName: "mic.circle"), for: UIControl.State.normal)
             recordButton.tintColor = #colorLiteral(red: 0.8980392157, green: 0.862745098, blue: 0.8, alpha: 1)
             
-            
             //stop and save that recording to coredata?
             appDelegate.saveRecording(fileName: currentRecordingId, displayName: appDelegate.newDefaultDisplayName())
             
             
-            // Creating StatusAlert instance
+            // Show an alert status that recording has been saved
             let statusAlert = StatusAlert()
             statusAlert.image = UIImage(systemName: "waveform.path.badge.plus")
             statusAlert.title = "Success"
             statusAlert.message = "Your entry has been successfully saved!"
-            //statusAlert.canBePickedOrDismissed = true
             statusAlert.alertShowingDuration = 3
-
             // Presenting created instance
             statusAlert.showInKeyWindow()
-           
-            
-            
-
-
         }
     }
 }
