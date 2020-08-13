@@ -66,6 +66,6 @@ Due to constraint in timing, these are future enhancements I'd like to make.
 4. Customize mental health tools/resources for each user depending on their entries and sentiment analysis. 
 
 ## Trello Board
-(https://trello.com/b/WN1ISprZ/vocalize)
+https://trello.com/b/WN1ISprZ/vocalize
 
 
