@@ -14,6 +14,8 @@
 * [Technologies](#technology-stack)
 * [Installation](#install-vocalize)
 * [Further Enhancements](#enhancements)
+* [Trello Board](#trello-board)
+
 
 ## Introduction
 Do you ever start talking about something that's been on your mind and suddenly have a realization, or feel lighter because you were prompted to organize your thoughts better? Do you ever wonder, if there's a pattern with the day of the week and your mood? Do you ever have a great idea but don't have a pen and paper to write it down or better yet, do you ever feel like the speed of which your thoughts are generated does not match the speed of your writing? 
@@ -62,5 +64,8 @@ Due to constraint in timing, these are future enhancements I'd like to make.
 2. Incorporate more logic that takes into consideration the confidence score given back with every sentiment analysis API call to ensure accuracy.
 3. Add a tag-feature where each recording can be tagged and grouped/searched via their associated tag. 
 4. Customize mental health tools/resources for each user depending on their entries and sentiment analysis. 
+
+## Trello Board
+(https://trello.com/b/WN1ISprZ/vocalize)
 
 
